@@ -1,0 +1,675 @@
+@media (max-width: 1000px) {
+    :root {
+        /* padding */
+        --title_for_section: 3.2rem 3.2rem;
+        --menu: 3.2rem 1.2rem 4.8rem 2.4rem;
+        --news: 3.2rem 2.4rem 6rem 2.4rem;
+        --post: 3.2rem;
+        /* --sponsor: 4rem 1.2rem 4rem 4rem; */
+        --preprints: 3.2rem;
+        /* --ads: 1.2rem; */
+        --profile_block: 3.2rem;
+
+    }
+
+    .devide_48 {
+        padding-left: var(--32);
+    }
+
+
+    .main_block,
+    .posts_list_wrap {
+        grid-template-columns: 20rem 1fr;
+    }
+
+    .sponsor_img_wrap {
+        width: 86%;
+    }
+
+    .rek_left {
+        gap: var(--24);
+    }
+
+    .preprints_artical_img {
+        width: 20rem;
+    }
+
+    .artical-page_content {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: var(--12);
+    }
+
+    .artical-page_data {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .profile_header {
+        flex-direction: column;
+        gap: var(--08);
+    }
+
+    .profile_header {
+        padding: var(--32);
+    }
+
+    .profile_colum_wrap {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .profile_right_friends,
+    .profile_right_events,
+    .profile_right_contact {
+        display: none;
+
+    }
+
+    .profil_switch_wrap {
+        display: flex;
+        gap: var(--04);
+        margin-bottom: var(--28);
+    }
+
+    .profil_switch_wrap button {
+        width: 100%;
+    }
+
+    .profile_right_content {
+        display: flex;
+        align-items: center;
+        gap: var(--24);
+    }
+
+    .profil_switch_events,
+    .profil_switch_contacts {
+        display: none;
+    }
+
+    .profile_right_title {
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .profile_right_block_switch {
+        display: block;
+    }
+
+    .friends_ul,
+    .events_ul,
+    .contact_ul {
+        margin-top: 0;
+    }
+
+    .profil_switch_events button {
+        width: 100%;
+        margin-top: var(--24);
+
+    }
+
+    .profil_switch_events div {
+        width: 100%;
+    }
+
+    .profile_right_block {
+        padding: var(--profile_block);
+    }
+
+    .edit_colum_wrap {
+        grid-template-columns: 1fr 22rem;
+    }
+
+    .edit_colum_right {
+        padding: var(--24) var(--32);
+    }
+
+    .edit_inputs {
+        padding: var(--32);
+    }
+
+    .form_one_delete {
+        right: -6%;
+        top: -10%;
+    }
+
+    .tag_list #search_back {
+        display: block;
+    }
+
+    .tags_page .top_menu_mobile {
+        display: flex;
+    }
+
+    .tags_page .title_for_section h1 {
+        font-family: var(--display03_font_family);
+        font-style: var(--display03_font_style);
+        font-weight: var(--display03_font_weight);
+        font-size: var(--display03_font_size);
+    }
+
+    .request_frend,
+    .black_list_frend {
+        flex-direction: column;
+        gap: var(--16);
+        align-items: flex-start;
+    }
+
+    .switch_wrap_btn {
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 860px) {
+    :root {
+        /* padding */
+        --title_for_section: 3.2rem 3.2rem;
+        --menu: 3.2rem 1.2rem 4.8rem 2.4rem;
+        --news: 3.2rem 3.2rem 6rem 3.2rem;
+        --sponsor: 4rem 1.2rem 4rem 4rem;
+        --preprints: 3.2rem 3.2rem 6rem 3.2rem;
+        --ads: 1.2rem;
+        --artical: 3.2rem 3.2rem 6rem 3.2rem;
+
+    }
+
+    .seamless_bg_grad {
+        border-radius: var(--12);
+    }
+
+    .preprints_artical {
+        flex-direction: column-reverse;
+    }
+
+
+    .preprints_artical_img_link {
+        padding-top: 56.25%;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .preprints_artical_img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 100%;
+        width: 100%;
+        max-height: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 6px 6px 0px 0px;
+    }
+
+    .preprints_artical_content {
+        width: auto;
+        gap: 8rem;
+    }
+
+    .preprints_title {
+        font-family: var(--display04_font_family);
+        font-size: var(--display04_font_size);
+        line-height: var(--display04_line_height);
+    }
+
+    .preprints_artical_bottom {
+        margin-top: var(--40);
+    }
+
+
+
+
+
+    .cros_link_content {
+        width: auto;
+        padding: 2rem 2rem 3.2rem;
+    }
+
+    .cros_link {
+        flex-direction: column;
+        border-radius: 0 0 var(--06) var(--06);
+    }
+
+    .cros_link img {
+        width: 100%;
+        height: 14rem;
+        border-radius: var(--06) var(--06) 0 0;
+    }
+
+    .preprints_wraps .more_btn {
+        padding-bottom: 32px;
+    }
+
+    .tags_page .preprints_title {
+        font-family: var(--display04_font_family);
+        font-size: var(--display04_font_size);
+        line-height: var(--display04_line_height);
+    }
+
+    .inner_menu{
+        display: none;
+    }
+
+
+
+    :root {
+        /* padding */
+
+        --news: 3.2rem 3.2rem 6rem 3.2rem;
+    }
+
+    .body {
+        /* padding-bottom: 8rem; */
+    }
+
+    .main_block {
+        grid-template-columns: 1fr;
+    }
+
+    .more_btn {
+        justify-content: center;
+    }
+
+    .preprints_wraps .more_btn {
+        margin-left: 0;
+    }
+
+    .banner_top {
+        width: auto;
+        object-fit: contain;
+    }
+
+    .menu,
+    .sponsor,
+    .rek_left {
+        display: none;
+    }
+
+    .mobile_menu {
+        display: flex;
+    }
+
+    .news__section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .news_banner {
+        border: none;
+    }
+
+    .post_rekl {
+        display: flex;
+        justify-content: center;
+        max-height: 31.2rem;
+    }
+
+    .news_banner_wrap {
+        width: 100%;
+    }
+
+    .news_banner {
+        max-height: 31.2rem;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .post_rekl__img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .preprints_title {
+        font-family: var(--display03_font_family);
+        font-size: var(--display03_font_size);
+        line-height: var(--display03_line_height);
+    }
+
+    .header_logo img {
+        width: 100%;
+    }
+
+    .anima_line {
+        padding: var(--08) 0;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .top_menu_mobile {
+        display: flex;
+    }
+
+    .artical-page_img {
+        border-radius: var(--04);
+    }
+
+
+
+    .artical_wrap h1 {
+        font-family: var(--display07_font_family);
+        font-size: var(--display07_font_size);
+        line-height: var(--display07_line_height);
+    }
+
+    .autor {
+
+        gap: 0px;
+        flex-direction: column-reverse;
+    }
+
+    .add_articals_content {
+        width: 28rem;
+    }
+
+    .artical-page_text {
+        width: 100%;
+    }
+
+    .profile_title {
+        font-family: var(--display03_font_family);
+        font-size: var(--display03_font_size);
+        line-height: var(--display03_line_height);
+    }
+
+    .edit_colum_wrap {
+        display: flex;
+    }
+
+    .edit_colum_right,
+    .edit_wrap .title_for_section__wrap {
+        display: none;
+    }
+
+    .top_menu_list_btn {
+        position: relative;
+    }
+
+    .top_menu_list_btn span {
+        cursor: pointer;
+        align-items: center;
+
+        display: flex;
+    }
+
+    .top_menu_list_btn span:hover {
+        opacity: .4;
+    }
+
+    .top_menu_list_btn .selector {
+        right: 50%;
+        transform: translateX(-50%);
+
+    }
+
+    .edit_colum {
+        width: 100%;
+    }
+
+    .form_one_delete {
+        right: -2%;
+        top: -6%;
+    }
+
+    .title_for_section__left a {
+        display: block;
+    }
+
+    .title_for_section__left h1 {
+        display: none;
+    }
+
+    .user_messages_top .row {
+        display: flex;
+        align-items: center;
+        gap: var(--04);
+    }
+
+
+
+    .user_messages_top {
+        padding: var(--16);
+    }
+
+    .messenger_list_wrap {
+        height: 75vh;
+        display: flex;
+    }
+
+    .user_messages .wrap {
+        height: 69vh;
+    }
+
+    .chat_list_wrap {
+        height: 63vh;
+    }
+
+    .switch_wrap_btn {
+        flex-direction: row;
+    }
+
+    .pre_post_new_post_wrap {
+        padding-left: var(--40);
+        padding-right: var(--40);
+    }
+
+
+
+}
+
+@media (max-width: 680px) {
+    .user_messages_top .row button {
+        display: block;
+    }
+
+    .user_messages {
+        display: none;
+    }
+
+    .have_messeges_wrap {
+        width: 100%;
+    }
+
+    .pre_post_new_post_line,
+    .pre_post_show {
+        display: none;
+    }
+
+    .pre_post_new_post_wrap {
+        display: flex;
+    }
+
+    .pre_post_setting {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .profil_switch_wrap button {
+        width: auto;
+    }
+
+    .profil_switch_wrap {
+        overflow: scroll;
+        margin-right: -20px;
+        scrollbar-width: none;
+    }
+
+    .profile_right_content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pop_up_container {
+        padding: 4.4rem 2.4rem 6rem;
+    }
+
+    .pop_up_title {
+        font-family: var(--display03_font_family);
+        font-size: var(--display03_font_size);
+        line-height: var(--display03_line_height);
+    }
+
+    .skills_input_wrap {
+        flex-direction: column;
+
+    }
+
+    .skills_input_wrap button {
+        width: 100%;
+    }
+
+    .edit_wrap {
+        overflow: auto;
+    }
+
+    .search_wrap {
+
+        margin-left: var(--12);
+    }
+
+    .tags_input_wrap input {
+        width: 100%;
+    }
+
+    .search_input_wrap input {
+        width: 100%;
+    }
+
+    .tags_input_wrap {}
+
+    #tags_list {
+        width: 90%;
+        right: -80px;
+
+    }
+
+    .title_for_section.my_blog {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .create_post_header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #create_post_title {
+        width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    :root {
+        /* padding */
+        --title_for_section: 3.2rem 2.4rem;
+        --news: 2.4rem;
+        --post: 3.2rem 2.4rem 3.2rem 2.4rem;
+        --preprints: 3.2rem 2.4rem 6rem 2.4rem;
+        --artical: 3.2rem 2.4rem 6rem 2.4rem;
+        --profile_block: 3.2rem 2.4rem 3.2rem 2.4rem;
+
+    }
+
+    .devide_post {
+        margin: var(--20) -2.4rem;
+    }
+
+    .body {
+        padding: 0 var(--06);
+    }
+
+    .devide_48 {
+        padding-left: var(--24);
+    }
+
+    .seamless_bg {
+        padding: 0;
+    }
+
+    .seamless_bg_grad {
+        border-radius: var(--04);
+    }
+
+    .add_articals_content {
+        width: 26rem;
+    }
+
+    .profile_header,
+    .profile_right_block {
+        padding: var(--profile_block);
+    }
+
+    .edit_btn_wrap {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .edit_btn_wrap button {
+        width: 100%;
+    }
+
+    .edit_inputs {
+        padding: 3.2rem 2.4rem 3.2rem 2.4rem;
+        ;
+    }
+
+    .profile_colum .title_for_section__wrap h2 {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .create_post_wrap .area_create_post {
+        padding: 2rem 2rem 44rem 2rem;
+    }
+
+    .create_post_wrap .create_post_header {
+        padding: 3.2rem 2rem;
+    }
+
+    .create_post_wrap #create_post_title {
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 330px) {
+
+    .body,
+    .container {
+        padding: 0;
+    }
+
+
+
+    .header_container {
+        padding: var(--16) 6px;
+    }
+
+    .mobile_menu_item {
+        height: 5.2rem;
+    }
+
+    .mobile_menu_text {
+        display: none;
+    }
+
+    .inner_page {
+        margin-top: 0;
+        border-radius: var(--12);
+    }
+
+    .profile_img-bg {
+        aspect-ratio: 18 / 9;
+    }
+}

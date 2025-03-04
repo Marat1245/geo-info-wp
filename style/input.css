@@ -1,0 +1,384 @@
+input,
+textarea,
+select,
+.t_contenteditable {
+    border: 1px var(--color_stroke_grey) solid;
+    border-radius: .6rem;
+    width: -webkit-fill-available;
+    height: 3.6rem;
+    padding-left: var(--12);
+    font-family: var(--body02_font_family);
+    font-size: var(--body02_font_size);
+    line-height: var(--body02_line_height);
+}
+
+select {
+    height: 3.6rem;
+    appearance: none;
+    /* Убирает стандартный стиль браузера */
+    -webkit-appearance: none;
+    /* Для браузеров на основе WebKit */
+    -moz-appearance: none;
+    /* Для Firefox */
+
+    background: url("../img/icons/Arrow_down_20.svg") no-repeat right 1rem center;
+    /* Добавляем свою стрелочку через background и позиционируем её */
+
+    background-size: 2rem;
+    /* Размер стрелочки */
+    padding-right: 4rem;
+    /* Отступ, чтобы текст не накладывался на стрелочку */
+}
+
+textarea {
+    padding-left: var(--12);
+    padding-right: var(--12);
+    resize: none;
+    padding-top: var(--16);
+    padding-bottom: var(--06);
+}
+
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible,
+.t_contenteditable:focus-visible,
+.t_contenteditable:focus {
+    border-color: var(--color_stroke_orange);
+    /* Цвет обводки при фокусе */
+    background-color: var(--color_background_white);
+    /* Фон при фокусе */
+    outline: none;
+    /* Убираем стандартную обводку браузера */
+}
+
+
+
+.input_accent {
+    background-color: var(--color_background_blue_light);
+
+}
+
+.input_normal_size {
+    height: 3.2rem;
+}
+/*.t_contenteditable:not(:placeholder-shown)*/
+input:not(:placeholder-shown),
+textarea:not(:placeholder-shown)
+ {
+    background-color: var(--color_background_white);
+}
+
+label {
+    font-family: var(--body01_font_family);
+    font-size: var(--body01_font_size);
+    line-height: var(--body01_line_height);
+    margin-bottom: var(--08);
+    display: block;
+}
+
+input.normal {
+    height: 5.8rem;
+}
+
+.comment_input_wrap {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.comment_right_block {
+    position: absolute;
+    right: var(--04);
+    display: flex;
+    align-items: center;
+    gap: var(--04);
+    bottom: .5rem;
+}
+
+.comment_right_block span {
+    font-size: 1rem;
+}
+
+
+
+
+.wrap_input_selector {
+    display: flex;
+    position: relative;
+}
+
+.wrap_input_selector button {
+    position: absolute;
+    right: 0px;
+    top: 0;
+}
+
+.readonly_iput {
+    cursor: pointer;
+}
+.body .selector ul, .body .menu ul, .body .mobile_list_wrap ul, .body .edit_colum_right ul, .body .t_list_input ul {
+    padding-left: 0;
+}
+.body .selector li, .body .menu li, .body .mobile_list_wrap li, .body .menu_ul li, .body .t_list_input li {
+    list-style: none;
+}
+    /*  */
+/* Для Chrome, Edge и Safari */
+#tags_list::-webkit-scrollbar,
+.list_input::-webkit-scrollbar,
+.t_list_input::-webkit-scrollbar,
+.new_scroll::-webkit-scrollbar {
+    width: 4px;
+    /* Ширина вертикального скролла */
+    height: 4px;
+    /* Высота горизонтального скролла */
+    border-radius: var(--12);
+}
+
+#tags_list::-webkit-scrollbar-track,
+.list_input::-webkit-scrollbar-track,
+.t_list_input::-webkit-scrollbar-track,
+.new_scroll::-webkit-scrollbar-track {
+    background: var(--color_background_white);
+    /* Цвет фона трека */
+    border-radius: 2px;
+    /* Радиус углов */
+}
+
+#tags_list:-webkit-scrollbar-thumb,
+.list_input::-webkit-scrollbar-thumb,
+.t_list_input::-webkit-scrollbar-thumb,
+.new_scroll::-webkit-scrollbar-thumb {
+    background-color: var(--color_background_grey);
+    /* Цвет ползунка */
+    border-radius: 2px;
+    /* Радиус углов ползунка */
+    border: 1px solid #f0f0f0;
+    /* Пространство между ползунком и треком */
+}
+
+#tags_list::-webkit-scrollbar-thumb:hover,
+.list_input::-webkit-scrollbar-thumb:hover,
+.t_list_input::-webkit-scrollbar-thumb:hover,
+.new_scroll::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color_background_grey);
+    display: block;
+    /* Цвет ползунка при наведении */
+}
+
+/* Для Firefox */
+#tags_list,
+.list_input,
+.t_list_input,
+.new_scroll {
+    scrollbar-width: thin;
+    /* Толщина: thin (тонкий) или auto (стандартный) */
+    scrollbar-color: var(--color_background_grey) var(--color_background_white);
+    /* Цвет ползунка и трека */
+}
+
+/*  */
+.t_list_input ul {
+    width: 100%;
+}
+
+/* selector */
+.selector_wrap,
+.t_selectore_wrap {
+    position: relative;
+}
+
+.selector,
+.t_selectore {
+    padding: var(--12);
+    background-color: var(--color_background_white);
+    box-shadow: var(--shadow);
+    position: absolute;
+    right: 0;
+    min-width: 28.8rem;
+    border-radius: var(--06);
+    z-index: 10;
+    display: none;
+}
+
+.selector li,
+.back_list,
+.mobile_selector li,
+.t_selectore li,
+.t_list_input li {
+    font-family: var(--body02_font_family);
+    font-size: var(--body02_font_size);
+    display: flex;
+    gap: var(--08);
+    align-items: center;
+    cursor: pointer;
+    border-radius: var(--06);
+    padding: 0 0.8rem 0 1.2rem;
+    min-height: 4.8rem;
+
+}
+
+.selector li.active,
+.mobile_selector li.active,
+.list_input li.active,
+.t_list_input li.active,
+#tags_list li.active,
+.t_selectore li.active {
+    background-color: var(--color_background_blue_light);
+}
+
+.selector li div,
+.mobile_selector li div,
+.t_selectore li div {
+    width: 100%;
+    display: flex;
+    gap: var(--08);
+    align-items: center;
+    position: relative;
+    height: 4.8rem;
+}
+
+.selector li.active {
+    background-color: var(--color_background_blue_light);
+}
+
+.selector li:hover,
+.back_list:hover,
+.mobile_selector li:hover,
+.list_input li:hover,
+.t_list_input li:hover #tags_list li:hover,
+.t_selectore li:hover {
+    background-color: var(--color_background_blue_light);
+}
+
+.back_list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--display02_font_family);
+    font-size: var(--display02_font_size);
+    line-height: var(--display02_line_height);
+    font-weight: var(--display02_font_weight);
+}
+
+.back_list_empty {
+    width: var(--24);
+}
+
+.selector_second {
+    display: none;
+}
+
+.selector .li_sub {
+    margin: 1.2rem -1.2rem -1.2rem -1.2rem;
+    padding: 1rem 2.4rem;
+    background: var(--color_background_orange_light_01);
+}
+
+.selector li div .selector_notification_wrap {
+    width: auto;
+}
+
+.profile_view {
+    background: var(--color_background_blue_light);
+    padding: var(--08);
+    display: flex;
+    justify-content: space-between;
+    border-radius: .6rem;
+    margin-bottom: var(--02);
+
+}
+
+.profile_view:hover {
+    opacity: 0.4;
+}
+
+.profile_view_ava {
+    width: var(--40);
+}
+
+.profile_view_left {
+    display: flex;
+    gap: var(--12);
+    align-items: center;
+
+}
+
+.profile_view_text span:first-child {
+    font-family: var(--body01_font_family);
+    font-size: var(--body01_font_size);
+}
+
+.profile_view_text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* selector END */
+
+.list_input,
+.t_list_input,
+#tags_list {
+    padding: var(--12);
+    background-color: var(--color_background_white);
+    box-shadow: var(--shadow);
+    position: absolute;
+    min-width: 28.8rem;
+    border-radius: var(--06);
+    z-index: 10;
+    width: 85%;
+    top: 4.6rem;
+    max-height: 25rem;
+    overflow-y: overlay;
+    display: none;
+    min-height: 60px;
+
+}
+
+.list_input li,
+#tags_list li,
+.t_list_input li {
+    font-family: var(--body02_font_family);
+    font-size: var(--body02_font_size);
+    display: flex;
+    gap: var(--08);
+    align-items: center;
+    cursor: pointer;
+    border-radius: var(--06);
+    padding: 0 0.8rem 0 1.2rem;
+    min-height: 4.8rem;
+    justify-content: space-between;
+}
+
+.list_input img,
+.t_list_input img {
+    display: none;
+}
+
+.list_input .list_input_active,
+.t_list_input .list_input_active {
+    display: block;
+}
+
+.list_input p,
+.t_list_input p,
+#tags_list p {
+    height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--body02_font_family);
+    font-size: var(--body02_font_size);
+}
+
+.post_list {
+    width: 96%;
+}
+
+.readonly_input {
+    padding-right: var(--40);
+}
