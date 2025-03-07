@@ -339,15 +339,60 @@ require get_template_directory() . '/component/set_like/script.php';
 require get_template_directory() . '/component/comments/CommentModel.php';
 require get_template_directory() . '/component/comments/CommentView.php';
 require get_template_directory() . '/component/comments/CommentController.php';
+require_once get_template_directory() . '/component/comments/comment_manager/CommentLikes.php';
 
-add_action("wp_ajax_add_comment", ["CommentController", "handle_comment_submission"]);
-add_action("wp_ajax_nopriv_add_comment", ["CommentController", "handle_comment_submission"]);
+// Инициализируем CommentLikes
+add_action('init', array('CommentLikes', 'init'));
 
-add_action("wp_ajax_update_comment", ["CommentController", "handle_comment_update"]);
-add_action("wp_ajax_nopriv_update_comment", ["CommentController", "handle_comment_update"]);
+// Регистрируем обработчики AJAX
+add_action('wp_ajax_add_comment', array('CommentController', 'handle_comment_submission'));
+add_action('wp_ajax_nopriv_add_comment', array('CommentController', 'handle_comment_submission'));
 
-add_action("wp_ajax_delete_comment", ["CommentController", "handle_comment_delete"]);
-add_action("wp_ajax_nopriv_delete_comment", ["CommentController", "handle_comment_delete"]);
+add_action('wp_ajax_update_comment', array('CommentController', 'handle_comment_update'));
+add_action('wp_ajax_nopriv_update_comment', array('CommentController', 'handle_comment_update'));
 
+add_action('wp_ajax_delete_comment', array('CommentController', 'handle_comment_delete'));
+add_action('wp_ajax_nopriv_delete_comment', array('CommentController', 'handle_comment_delete'));
+
+add_action('wp_ajax_restore_comment', array('CommentController', 'handle_comment_restore'));
+add_action('wp_ajax_nopriv_restore_comment', array('CommentController', 'handle_comment_restore'));
+
+add_action('wp_ajax_toggle_comment_like', array('CommentLikes', 'handle_toggle_like'));
+add_action('wp_ajax_nopriv_toggle_comment_like', array('CommentLikes', 'handle_toggle_like'));
 
 require get_template_directory() . '/component/format_time.php';
+
+function enqueue_comment_scripts() {
+    wp_enqueue_script('comment-set', get_template_directory_uri() . '/component/comments/comment-set.js', array(), '1.0', true);
+    wp_enqueue_script('comment-index', get_template_directory_uri() . '/component/comments/comment_manager/index.js', array(), '1.0', true);
+    
+    // Добавляем nonce для безопасности
+    wp_localize_script('comment-index', 'commentNonce', wp_create_nonce('comment_nonce'));
+    
+    // Добавляем type="module" для comment-index
+    add_filter('script_loader_tag', function($tag, $handle) {
+        if ($handle === 'comment-index') {
+            return str_replace(' src', ' type="module" src', $tag);
+        }
+        return $tag;
+    }, 10, 2);
+}
+add_action('wp_enqueue_scripts', 'enqueue_comment_scripts');
+
+function handle_load_more_comments() {
+    check_ajax_referer('comment_nonce', 'nonce');
+    
+    $post_id = intval($_POST['post_id']);
+    $page = intval($_POST['page']);
+    
+    $result = CommentManager::get_comments($post_id, $page);
+    
+    if ($result['has_more']) {
+        $remaining = min($result['remaining'], 5);
+        $result['load_more_text'] = "Ещё {$remaining} комментариев";
+    }
+    
+    wp_send_json_success($result);
+}
+add_action('wp_ajax_load_more_comments', 'handle_load_more_comments');
+add_action('wp_ajax_nopriv_load_more_comments', 'handle_load_more_comments'); 

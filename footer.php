@@ -21,7 +21,7 @@
 <!-- MOBILE MENU END -->
 
 <!-- MOBILE SELECTOR -->
-<?php get_template_part('component/mobile-selector'); ?>
+<?php get_template_part('component/menu/mobile-selector'); ?>
 <!-- MOBILE SELECTOR END -->
 
 <?php wp_footer(); ?>

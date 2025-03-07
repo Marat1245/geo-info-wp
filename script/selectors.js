@@ -6,11 +6,9 @@ $(document).ready(function () {
 
     // Вешаем обработчик на кнопки и аватары
     $('[data-log="on"]').on("click", function (e) {
-        if ($(window).width() > 860) {
+        if ($(window).width() > 760) {
             openSelector($(this), e);
-            console.log("ddd")
         }
-
     });
 
     $(".selector_wrap button").on("click", function (e) {

@@ -3,10 +3,7 @@
     <div class="artical-page_tag">
         <?php
         $post_id = get_the_ID();
-        //        $args = [
-        //            'post_id' => get_the_ID(),
-        //            'likes' => LikeModel::get_likes(get_the_ID())
-        //        ];
+    
         $categories = get_the_terms(get_the_ID(), 'category');
         if (!empty($categories) && !is_wp_error($categories)) {
             foreach ($categories as $category) {
@@ -78,22 +75,14 @@
                 <span class="card_caption_text"></span>
 
             </button>
-            <!--                   --><?php ////get_template_part('component/selector.php'); ?>
-            <!--                    --><?php
-            //                    require_once "component/selector.php";
-            //                    renderSelector(true); ?>
+         
         </div>
     </div>
-    <div class="comment_block">
+    <div class="comment_block" id="comment_block_<?php echo get_the_ID(); ?>">
         <span class="comment_title">Комментарии</span>
         <?php
 
-        // Загружаем комментарии для текущего поста
-        //                   if (comments_open() || get_comments_number()) {
-        //                        echo $post_id;
-        //                       comments_template();
-        //
-        //                   }
+       
         // Обработчик формы
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['comment_content'])) {
@@ -114,28 +103,7 @@
 
         ?>
     </div>
-    <!--            <div class="comment_block" id="comment_block">-->
-    <!--                <span class="comment_title">Комментарии</span>-->
-    <!---->
-    <!--                <div class="comment_input_wrap">-->
-    <!--                    <textarea maxlenght="2500" placeholder="Написать комментарий"-->
-    <!--                              class="input_accent input_normal_size input_icon_right textarea_comment"></textarea>-->
-    <!--                    <div class="comment_right_block">-->
-    <!--                        <span class="card_caption_text char_count">0</span>-->
-    <!--                        <span class="card_caption_text">/ 2500</span>-->
-    <!--                        <button type="submit" class="flat small_icon">-->
-    <!--                            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"-->
-    <!--                                 xmlns="http://www.w3.org/2000/svg">-->
-    <!--                                <path-->
-    <!--                                        d="M28 18L8 30L9.76471 24.0001L10.6471 21.0001L11.0882 19.5002L23.2941 18.0002L11.0882 16.5002L10.6471 15.0001L9.76471 12.0001L8 6L28 18Z"-->
-    <!--                                        fill="#BFCADA" />-->
-    <!--                            </svg>-->
-    <!--                        </button>-->
-    <!--                    </div>-->
-    <!---->
-    <!--                </div>-->
-    <!---->
-    <!--               -->
+
     <!---->
     <!--            </div>-->
     <!--            <div class="add_articals">-->
@@ -159,12 +127,15 @@
             LikeButton::render(get_the_ID());
             ?>
 
-            <a href="#comment_block">
+            <a href="#comment_block_<?php echo get_the_ID(); ?>">
                 <button class="small_text flat text_icon_btn">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/icons/message_20.svg" alt="">
-
-                    <span class="card_caption_text"></span>
-
+                    <?php 
+                    $comments_count = CommentModel::get_comments_count(get_the_ID());
+                    if ($comments_count > 0): 
+                    ?>
+                        <span class="card_caption_text comments-count"><?php echo $comments_count; ?></span>
+                    <?php endif; ?>
                 </button>
             </a>
 
@@ -175,9 +146,7 @@
                     <span class="card_caption_text"></span>
 
                 </button>
-                <!--            --><?php
-                //            require_once "component/selector.php";
-                //            renderSelector(true); ?>
+                
             </div>
         </div>
     </div>

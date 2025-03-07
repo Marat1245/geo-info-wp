@@ -96,7 +96,8 @@
 }
 
 
-.news_dot, .news_dot img {
+.news_dot,
+.news_dot img {
     height: var(--08);
     width: var(--08);
 }
@@ -107,11 +108,13 @@
     font-size: var(--display03_font_size);
     line-height: var(--display03_line_height);
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Ограничиваем до 2 строк */
+    -webkit-line-clamp: 2;
+    /* Ограничиваем до 2 строк */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 5.6rem; /* Настроить под размер шрифта */
+    max-height: 5.6rem;
+    /* Настроить под размер шрифта */
 
 }
 
@@ -953,20 +956,26 @@
     left: 50%;
 
 }
+
 .fix_controller {
 
     opacity: 0;
     visibility: hidden;
-    transform: translate(-50%, -20px); /* Изначально сдвигаем вниз */
-    transition: opacity 0.3s ease, visibility 0s 0.3s, transform 0.6s ease; /* Плавная анимация */
+    transform: translate(-50%, -20px);
+    /* Изначально сдвигаем вниз */
+    transition: opacity 0.3s ease, visibility 0s 0.3s, transform 0.6s ease;
+    /* Плавная анимация */
 }
 
 .post-item.active .fix_controller {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, 0);;
-    transition: opacity 0.3s ease, visibility 0s 0s, transform 0.6s ease; /* Плавная анимация */
+    transform: translate(-50%, 0);
+    ;
+    transition: opacity 0.3s ease, visibility 0s 0s, transform 0.6s ease;
+    /* Плавная анимация */
 }
+
 .inner_menu_fixed {
     position: relative;
 }
@@ -1010,12 +1019,15 @@
     flex-direction: column;
     gap: var(--28);
 }
-.comment_block [contenteditable="true"]{
+
+.comment_block [contenteditable="true"] {
 
     padding-top: var(--12);
     padding-bottom: var(--12);
     height: fit-content;
+    min-height: var(--24);
 }
+
 .user_comment {}
 
 .user_comment_info {
@@ -1163,15 +1175,68 @@
 .comment_post .user_comment_info {
     margin-left: 0;
 }
+
 .comment_input:not(:placeholder-shown) {
     background-color: var(--color_background_white);
 }
-.comment_input.placeholder{
+
+.comment_input.placeholder {
     background-color: var(--color_background_blue_light);
 }
-.comment_input.placeholder:before{
+
+.comment_input.placeholder:before {
     color: var(--color_text_dark);
     opacity: 0.5;
+}
+
+.delete_comment_wrap {
+    display: flex;
+    gap: var(--12);
+    align-items: center;
+}
+
+.delete_comment_wrap div {
+    color: var(--color_text_dark);
+    font-family: var(--body01_font_family);
+    font-size: var(--body01_font_size);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.like-comment {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.like-icon {
+    color: #BBBBBB;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.like-count {
+    color: #BBBBBB;
+    font-size: 14px;
+}
+
+.like-comment.liked .like-icon {
+    color: #FF4444;
+}
+
+.like-comment.liked .like-count {
+    color: #FF4444;
+}
+
+.like-icon.active {
+    transform: scale(1.2);
 }
 
 /* COMMENT END*/

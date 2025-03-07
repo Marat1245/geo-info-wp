@@ -2,9 +2,38 @@
 // model/comment.php
 class CommentModel {
 
+    public static function get_comments_count($post_id) {
+        return get_comments(array(
+            'post_id' => $post_id,
+            'count' => true
+        ));
+    }
+
     public static function get_comments($post_id) {
-        // Получаем все комментарии для конкретного поста
-        return get_comments(array('post_id' => $post_id));
+        $comments = get_comments(array(
+            'post_id' => $post_id,
+            'order' => 'DESC',
+            'orderby' => 'comment_date'
+        ));
+
+        $user_id = get_current_user_id();
+        $formatted_comments = array();
+
+        foreach ($comments as $comment) {
+            $likes_count = CommentLikes::get_likes_count($comment->comment_ID);
+            $is_liked = $user_id ? CommentLikes::is_liked_by_user($comment->comment_ID, $user_id) : false;
+
+            $formatted_comments[] = array(
+                'id' => $comment->comment_ID,
+                'author' => $comment->comment_author,
+                'content' => $comment->comment_content,
+                'date' => $comment->comment_date,
+                'likes_count' => $likes_count,
+                'is_liked' => $is_liked
+            );
+        }
+
+        return $formatted_comments;
     }
 
     public static function add_comment($post_id, $author, $content) {
@@ -28,7 +57,22 @@ class CommentModel {
     }
 
     public static function delete_comment($comment_id) {
-        // Удаляем комментарий
-        return wp_delete_comment($comment_id, true);
+        // Вместо полного удаления, помечаем комментарий как удаленный
+        $comment = get_comment($comment_id);
+        if ($comment) {
+            $comment->comment_approved = 'trash';
+            return wp_update_comment((array) $comment);
+        }
+        return false;
     }
-}
+
+    public static function restore_comment($comment_id) {
+        // Восстанавливаем комментарий из корзины
+        $comment = get_comment($comment_id);
+        if ($comment) {
+            $comment->comment_approved = 1;
+            return wp_update_comment((array) $comment);
+        }
+        return false;
+    }
+} 
