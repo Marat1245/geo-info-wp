@@ -223,6 +223,9 @@ add_action('wp_enqueue_scripts', 'geoinfo_enqueue_scripts');
 
 
 function geoinfo_enqueue_local_scripts() {
+    
+   
+
     $scripts = [
         'notification-js' => '/script/notification.js',
         'selectors-js' => '/script/selectors.js',
@@ -244,9 +247,8 @@ function geoinfo_enqueue_local_scripts() {
         'editor-2-js' => '/script/editor_2/main.js',
         'main-js' => '/script/main.js',
         'set_active_fixed_controller' => '/script/set_active_fixed_controller.js',
-        'comment_placeholder' => '/component/comments/comment_placeholder.js',
-        'comment-set' => '/component/comments/comment-set.js',
-
+        'comment_placeholder' => '/component/comments/input/comment_placeholder_main.js',
+        
     ];
 
     foreach ($scripts as $handle => $path) {
@@ -320,6 +322,7 @@ function enable_comments_globally($status, $post_id) {
 }
 add_filter('comments_open', 'enable_comments_globally', 10, 2);
 
+require get_template_directory() . '/component/format_time.php';
 
 require get_template_directory() . '/component/news/NewsModel.php';
 require get_template_directory() . '/component/news/NewsView.php';
@@ -336,63 +339,13 @@ require get_template_directory() . '/component/set_like/LikeView.php';
 require get_template_directory() . '/component/set_like/LikeController.php';
 require get_template_directory() . '/component/set_like/script.php';
 
-require get_template_directory() . '/component/comments/CommentModel.php';
-require get_template_directory() . '/component/comments/CommentView.php';
-require get_template_directory() . '/component/comments/CommentController.php';
-require_once get_template_directory() . '/component/comments/comment_manager/CommentLikes.php';
+require get_template_directory() . '/component/comments/input/script.php';
 
-// Инициализируем CommentLikes
-add_action('init', array('CommentLikes', 'init'));
+require get_template_directory() . '/component/comments/comment_list/script.php';
 
-// Регистрируем обработчики AJAX
-add_action('wp_ajax_add_comment', array('CommentController', 'handle_comment_submission'));
-add_action('wp_ajax_nopriv_add_comment', array('CommentController', 'handle_comment_submission'));
+require get_template_directory() . '/component/comments/comment_list/comment_controller/script.php';
 
-add_action('wp_ajax_update_comment', array('CommentController', 'handle_comment_update'));
-add_action('wp_ajax_nopriv_update_comment', array('CommentController', 'handle_comment_update'));
+require get_template_directory() . '/component/comments/comment_list/comment_selector/script.php';
 
-add_action('wp_ajax_delete_comment', array('CommentController', 'handle_comment_delete'));
-add_action('wp_ajax_nopriv_delete_comment', array('CommentController', 'handle_comment_delete'));
+require get_template_directory() . '/component/comments/comment_list/comment_restore/script.php';
 
-add_action('wp_ajax_restore_comment', array('CommentController', 'handle_comment_restore'));
-add_action('wp_ajax_nopriv_restore_comment', array('CommentController', 'handle_comment_restore'));
-
-add_action('wp_ajax_toggle_comment_like', array('CommentLikes', 'handle_toggle_like'));
-add_action('wp_ajax_nopriv_toggle_comment_like', array('CommentLikes', 'handle_toggle_like'));
-
-require get_template_directory() . '/component/format_time.php';
-
-function enqueue_comment_scripts() {
-    wp_enqueue_script('comment-set', get_template_directory_uri() . '/component/comments/comment-set.js', array(), '1.0', true);
-    wp_enqueue_script('comment-index', get_template_directory_uri() . '/component/comments/comment_manager/index.js', array(), '1.0', true);
-    
-    // Добавляем nonce для безопасности
-    wp_localize_script('comment-index', 'commentNonce', wp_create_nonce('comment_nonce'));
-    
-    // Добавляем type="module" для comment-index
-    add_filter('script_loader_tag', function($tag, $handle) {
-        if ($handle === 'comment-index') {
-            return str_replace(' src', ' type="module" src', $tag);
-        }
-        return $tag;
-    }, 10, 2);
-}
-add_action('wp_enqueue_scripts', 'enqueue_comment_scripts');
-
-function handle_load_more_comments() {
-    check_ajax_referer('comment_nonce', 'nonce');
-    
-    $post_id = intval($_POST['post_id']);
-    $page = intval($_POST['page']);
-    
-    $result = CommentManager::get_comments($post_id, $page);
-    
-    if ($result['has_more']) {
-        $remaining = min($result['remaining'], 5);
-        $result['load_more_text'] = "Ещё {$remaining} комментариев";
-    }
-    
-    wp_send_json_success($result);
-}
-add_action('wp_ajax_load_more_comments', 'handle_load_more_comments');
-add_action('wp_ajax_nopriv_load_more_comments', 'handle_load_more_comments'); 

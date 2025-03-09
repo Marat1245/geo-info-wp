@@ -288,6 +288,7 @@ section {
 .inner_menu .sponsor,
 .inner_menu nav {
     background: none;
+    height: fit-content;
 }
 
 .inner_menu {
