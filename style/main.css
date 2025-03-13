@@ -74,6 +74,7 @@
     display: flex;
     flex-direction: column;
     gap: 3.8rem;
+    margin-bottom: var(--32);
 }
 
 .news_first {
@@ -967,11 +968,11 @@
     /* Плавная анимация */
 }
 
+
 .post-item.active .fix_controller {
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, 0);
-    ;
     transition: opacity 0.3s ease, visibility 0s 0s, transform 0.6s ease;
     /* Плавная анимация */
 }
@@ -1062,15 +1063,12 @@
 
 .comment_control {
     display: flex;
-    justify-content: space-between;
+    gap: var(--04);
     margin-left: -0.8rem;
 
 }
 
-.comment_control div:first-child {
-    display: flex;
-    gap: var(--16);
-}
+
 
 .comment_text {
     display: -webkit-box;
@@ -1084,6 +1082,7 @@
     text-overflow: unset;
     /* Отключаем многоточие */
     white-space: normal;
+    word-break: break-all;
 
 
 }
@@ -1103,7 +1102,6 @@
     cursor: pointer;
     display: inline-block;
     right: var(--04);
-    top: 7.1rem;
     background: white;
     padding-left: var(--20);
     position: absolute;
@@ -1176,6 +1174,11 @@
     margin-left: 0;
 }
 
+.comment_input {
+    padding-right: 4.8rem;
+    word-break: break-all;
+}
+
 .comment_input:not(:placeholder-shown) {
     background-color: var(--color_background_white);
 }
@@ -1237,6 +1240,192 @@
 
 .like-icon.active {
     transform: scale(1.2);
+}
+
+.comment_text {
+
+    position: relative;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    cursor: pointer;
+}
+
+.comment_text[data-collapsed="true"] {
+    max-height: 96px;
+    /* Примерно 4 строки (24px * 4) */
+}
+
+.comment_text[data-collapsed="false"] {
+    max-height: 1000px;
+}
+
+.toggle_text {
+    color: var(--color_text_grey);
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 4px;
+    background: linear-gradient(to left, var(--color_background_white) 50%, transparent);
+    width: 100px;
+    text-align: right;
+    pointer-events: none;
+    /* Чтобы клики по кнопке не срабатывали */
+}
+
+.comment_text[data-collapsed="true"] .toggle_text {
+    display: inline;
+}
+
+/* Комментарии */
+
+.comment-deleted .user_comment_info,
+.comment-deleted .comment_text,
+.comment-deleted .comment_control {
+    display: none;
+}
+
+
+
+.delete_comment_wrap[style*="display: flex"] {
+    display: flex !important;
+}
+
+.delete_comment_wrap .small_text {
+    color: var(--color_text_orange);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.delete_comment_wrap .small_text:hover {
+    opacity: 0.8;
+}
+
+/* Стили для редактирования комментария */
+.comment_edit_form {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: var(--color_background_grey);
+    border-radius: 0.6rem;
+}
+
+.comment_edit_form .comment_input_wrap {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.comment_edit_form .t_contenteditable {
+    min-height: 8rem;
+    padding: 1rem;
+    background-color: var(--color_background_white);
+    border: 1px solid var(--color_stroke_grey);
+    border-radius: 0.6rem;
+    font-family: var(--body02_font_family);
+    font-size: var(--body02_font_size);
+    line-height: var(--body02_line_height);
+    resize: vertical;
+}
+
+.comment_edit_form .comment_right_block {
+    position: absolute;
+    right: 0.4rem;
+    bottom: 0.4rem;
+}
+
+.comment_edit_form .comment_right_block button {
+    width: 3.6rem;
+    height: 3.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color_background_blue);
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.comment_edit_form .comment_right_block button:hover {
+    background-color: var(--color_background_blue_dark);
+}
+
+.comment_edit_form .comment_right_block img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.comment_edit_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.comment_edit_wrap .comment_input,
+.comment_response_form .comment_input {
+    min-height: 7.4rem;
+}
+
+.comment_edit_wrap .comment_right_block,
+.comment_response_form .comment_right_block {
+    height: 100%;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.comment_edit_wrap .comment_right_block .cancel_edit,
+.comment_response_form .comment_right_block .cancel_response {
+    margin-top: 5px;
+}
+
+.comment_edit_wrap .comment_right_block .save_edit,
+.comment_response_form .comment_right_block .save_response {
+    margin-bottom: 5px;
+}
+
+.comment_changed {
+    align-items: center;
+    color: var(--color_text_dark);
+    display: none;
+}
+
+.comment_changed.active {
+    display: flex;
+}
+
+/* Стили для счетчика символов */
+.comment_edit_form .comment_char_counter {
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    font-size: var(--body01_font_size);
+    color: var(--color_text_grey);
+    transition: color 0.3s ease;
+    font-family: var(--body01_font_family);
+}
+
+.comment_edit_form .comment_char_counter.exceeded {
+    color: var(--color_text_red);
+}
+
+.comment_response_form {
+    margin-top: var(--12);
+}
+
+.comment_responses {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.response {
+    border-left: 1px solid var(--color_stroke_grey);
+    padding-left: var(--20);
+    padding-top: var(--12);
+    padding-bottom: var(--12);
+
+}
+
+.response:first-child {
+    margin-top: var(--20);
 }
 
 /* COMMENT END*/
@@ -1767,3 +1956,23 @@
 }
 
 /* MESSENGER END*/
+
+
+.more_btn.loading {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.more_btn.loading img {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

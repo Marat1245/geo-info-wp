@@ -16,14 +16,17 @@ button span {
     align-items: center;
     justify-content: center;
 }
-button:disabled{
+
+button:disabled {
     opacity: 0.2;
 
 }
-button:disabled:hover{
+
+button:disabled:hover {
     background: none;
     opacity: 0.2;
 }
+
 /* BUTTON */
 .small_icon,
 .small_text,
@@ -89,10 +92,12 @@ button.small_icon img {
 .primory:hover {
     opacity: 0.4;
 }
-.primory span{
+
+.primory span {
     color: var(--color_text_white);
 }
-    /* BUTTON END */
+
+/* BUTTON END */
 
 /* STROKE */
 .stroke_btn {
@@ -145,7 +150,6 @@ button.small_icon img {
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-top: var(--32);
 }
 
 .more_btn span,
@@ -170,9 +174,11 @@ button.small_icon img {
 .more_btn_profile span {
     color: var(--color_text_grey);
 }
-.expanded{
-    max-height: none!important;
+
+.expanded {
+    max-height: none !important;
 }
+
 /* more_btn END */
 
 .text_icon_btn img,
@@ -205,28 +211,31 @@ button.small_icon img {
     height: var(--40);
     border-radius: var(--12);
 }
+
 .hidden {
-    display: none!important;
+    display: none !important;
 }
 
 .visible_flex {
-    display: flex!important;
+    display: flex !important;
 
 }
-.liked svg{
+
+.liked svg {
     fill: var(--color_background_orange);
 }
-.liked path{
+
+.liked path {
     stroke-width: 0;
     transition: none;
 }
 
-.like-button {
+.like-button {}
 
-}
 button.disabled {
     pointer-events: none;
 }
-button.disabled:hover{
+
+button.disabled:hover {
     opacity: 1;
 }

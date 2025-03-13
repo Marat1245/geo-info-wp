@@ -50,8 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // - иконки внутри кнопок
         // - счетчики количества лайков
         const buttonAll = postItem.querySelectorAll(".like-button");
-        const likeIcons = postItem.querySelectorAll(".like-icon");
-        const likeCounts = postItem.querySelectorAll(".like-count");
 
         // Логируем количество найденных элементов для отладки
         // console.group('Обработка лайка');
@@ -88,18 +86,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // 1. Обновляем иконки
                 // Меняем изображение и alt-текст в зависимости от состояния лайка
-                if (likeIcons.length > 0) {
+                if (buttonAll.length > 0) {
                     // console.group('Обновление иконок');
-                    likeIcons.forEach((icon, index) => {
+                    buttonAll.forEach((item, index) => {
+                        const icon = item.querySelector(".like-icon");
+                        const count = item.querySelector(".like-count");
                         // const oldSrc = icon.src;
                         if (data.data.liked) {
                             // Если пост лайкнут - показываем активную иконку
                             icon.src = icon.dataset.activeIcon;
                             icon.alt = "Пользователь поставил лайк";
+                            // Обновляем значение счетчика
+                            count.textContent = data.data.likes;
+                            // Показываем счетчик только если есть хотя бы один лайк
+                            count.style.display = data.data.likes > 0 ? 'flex' : 'none';
                         } else {
                             // Если пост не лайкнут - показываем обычную иконку
                             icon.src = icon.dataset.defaultIcon;
                             icon.alt = "Лайк";
+                            // Обновляем значение счетчика
+                            count.textContent = data.data.likes;
+                            // Показываем счетчик только если есть хотя бы один лайк
+                            count.style.display = data.data.likes > 0 ? 'flex' : 'none';
                         }
                         // console.log(`Иконка ${index + 1}:`, {
                         //     было: oldSrc.split('/').pop(),
@@ -110,24 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     // console.groupEnd();
                 }
 
-                // 2. Обновляем счетчики лайков
-                // Обновляем число и видимость счетчиков
-                if (likeCounts.length > 0) {
-                    // console.group('Обновление счетчиков');
-                    likeCounts.forEach((count, index) => {
-                        // const oldValue = count.textContent;
-                        // Обновляем значение счетчика
-                        count.textContent = data.data.likes;
-                        // Показываем счетчик только если есть хотя бы один лайк
-                        count.style.display = data.data.likes > 0 ? 'flex' : 'none';
-                        // console.log(`Счетчик ${index + 1}:`, {
-                        //     было: oldValue,
-                        //     стало: data.data.likes,
-                        //     видимость: count.style.display
-                        // });
-                    });
-                    // console.groupEnd();
-                }
 
                 // 3. Обновляем состояние кнопок
                 // Добавляем задержку для плавности анимации

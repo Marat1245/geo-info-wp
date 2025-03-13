@@ -52,6 +52,7 @@ select:focus-visible,
     /* Фон при фокусе */
     outline: none;
     /* Убираем стандартную обводку браузера */
+    word-break: break-all;
 }
 
 
@@ -64,10 +65,10 @@ select:focus-visible,
 .input_normal_size {
     height: 3.2rem;
 }
+
 /*.t_contenteditable:not(:placeholder-shown)*/
 input:not(:placeholder-shown),
-textarea:not(:placeholder-shown)
- {
+textarea:not(:placeholder-shown) {
     background-color: var(--color_background_white);
 }
 
@@ -119,13 +120,24 @@ input.normal {
 .readonly_iput {
     cursor: pointer;
 }
-.body .selector ul, .body .menu ul, .body .mobile_list_wrap ul, .body .edit_colum_right ul, .body .t_list_input ul {
+
+.body .selector ul,
+.body .menu ul,
+.body .mobile_list_wrap ul,
+.body .edit_colum_right ul,
+.body .t_list_input ul {
     padding-left: 0;
 }
-.body .selector li, .body .menu li, .body .mobile_list_wrap li, .body .menu_ul li, .body .t_list_input li {
+
+.body .selector li,
+.body .menu li,
+.body .mobile_list_wrap li,
+.body .menu_ul li,
+.body .t_list_input li {
     list-style: none;
 }
-    /*  */
+
+/*  */
 /* Для Chrome, Edge и Safari */
 #tags_list::-webkit-scrollbar,
 .list_input::-webkit-scrollbar,
@@ -186,10 +198,10 @@ input.normal {
 }
 
 /* selector */
-.selector_wrap,
+/* .selector_wrap,
 .t_selectore_wrap {
     position: relative;
-}
+} */
 
 .selector,
 .t_selectore {
@@ -202,6 +214,7 @@ input.normal {
     border-radius: var(--06);
     z-index: 10;
     display: none;
+    width: fit-content;
 }
 
 .selector li,
@@ -381,4 +394,51 @@ input.normal {
 
 .readonly_input {
     padding-right: var(--40);
+}
+
+.comment_input_container {
+    position: relative;
+    width: 100%;
+}
+
+.comment_char_counter {
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    font-size: 12px;
+    color: var(--color_text_grey);
+    transition: color 0.3s ease;
+    font-family: var(--body01_font_family);
+    font-size: var(--body01_font_size);
+}
+
+.comment_char_counter.exceeded {
+    color: var(--color_text_red);
+}
+
+/* Стили для редактирования комментария */
+.comment_edit_form {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: var(--color_background_grey);
+    border-radius: 0.6rem;
+}
+
+.edit_comment_textarea {
+    width: 100%;
+    min-height: 8rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color_stroke_grey);
+    border-radius: 0.6rem;
+    font-family: var(--body02_font_family);
+    font-size: var(--body02_font_size);
+    line-height: var(--body02_line_height);
+    resize: vertical;
+}
+
+.comment_edit_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
 }

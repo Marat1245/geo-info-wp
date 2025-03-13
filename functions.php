@@ -247,7 +247,7 @@ function geoinfo_enqueue_local_scripts() {
         'editor-2-js' => '/script/editor_2/main.js',
         'main-js' => '/script/main.js',
         'set_active_fixed_controller' => '/script/set_active_fixed_controller.js',
-        'comment_placeholder' => '/component/comments/input/comment_placeholder_main.js',
+        
         
     ];
 
@@ -349,3 +349,18 @@ require get_template_directory() . '/component/comments/comment_list/comment_sel
 
 require get_template_directory() . '/component/comments/comment_list/comment_restore/script.php';
 
+require get_template_directory() . '/component/comments/comment_list/comment_selector/comment_delet/script.php';
+
+require get_template_directory() . '/component/comments/comment_list/comment_edit/script.php';
+
+require get_template_directory() . '/component/comments/comment_list/show_more/script.php';
+
+require get_template_directory() . '/component/comments/comment_list/comment_response/script.php';
+function register_my_custom_endpoint() {
+    register_rest_route('commentlist/v1', '/get_replies_comments2', array(
+        'methods' => 'POST',
+        'callback' => 'CommentListModel::get_replies_comments2',
+        'permission_callback' => '__return_true'  // Можно сделать публичным, или использовать кастомную проверку прав
+    ));
+}
+add_action('rest_api_init', 'register_my_custom_endpoint');

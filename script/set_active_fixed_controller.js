@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     function checkActiveTag() {
         const tags = document.querySelectorAll(".artical-page_tag");
         let activeItem = null;

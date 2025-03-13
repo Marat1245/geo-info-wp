@@ -1,21 +1,17 @@
-$(document).ready(function () {
-    $('.comment_text').on('click', function () {
-        const comment = $(this).closest('.comment_text');
-        // const isCollapsed = comment.attr('data-collapsed') === 'true';
+// $(document).ready(function () {
+//     $('.comment_text').on('click', function () {
+//         const comment = $(this).closest('.comment_text');
+//         const isCollapsed = comment.attr('data-collapsed') === 'true';
 
-        // comment.attr('data-collapsed', isCollapsed ? 'false' : 'true');
-        // $(this).closest('span').text(isCollapsed ? ' ' : 'еще');
-        comment.attr('data-collapsed', 'false');
-        $(this).children('span').css({ display: "none" })
-        // if (isCollapsed) {
-        //     comment.attr('data-collapsed', 'false');
-        //     $(this).children('span').css({ display: "none" })
-        // } else {
-        //     comment.attr('data-collapsed', 'true');
-        //     $(this).children('span').css({ display: "block" })
-        // }
-    });
-});
+//         if (isCollapsed) {
+//             comment.attr('data-collapsed', 'false');
+//             $(this).find('.toggle_text').css({ display: "none" });
+//         } else {
+//             comment.attr('data-collapsed', 'true');
+//             $(this).find('.toggle_text').css({ display: "inline" });
+//         }
+//     });
+// });
 
 
 $(document).ready(function () {

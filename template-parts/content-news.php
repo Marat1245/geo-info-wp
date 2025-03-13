@@ -78,33 +78,16 @@
          
         </div>
     </div>
-    <div class="comment_block" id="comment_block_<?php echo get_the_ID(); ?>">
+    <div class="comment_block" id="comment_block_<?php echo get_the_ID(); ?>" data-post-id="<?php echo get_the_ID(); ?>">
         <span class="comment_title">Комментарии</span>
         <?php
         InputCommentView::render_comment_form(get_the_ID());
-        $comments = CommentListModel::get_comments(get_the_ID());
-        CommentListView::render_comments($comments);
-        // Обработчик формы
-        // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        //     if (isset($_POST['comment_content'])) {
-        //         CommentController::handle_comment_submission();
-        //     } elseif (isset($_POST['comment_id']) && isset($_POST['new_content'])) {
-        //         CommentController::handle_comment_update();
-        //     } elseif (isset($_POST['comment_id'])) {
-        //         CommentController::handle_comment_delete();
-        //     }
-        // }
-
-        // Получаем комментарии
-        // $comments = CommentModel::get_comments($post_id);
-
-        // Отображаем форму и комментарии
-        // CommentView::render_comment_form($post_id);
-        // CommentView::render_comments($comments);
+        $comments_data = CommentListModel::get_comments(get_the_ID());
+        CommentListView::render_comments($comments_data['comments']);
+       
 
         ?>
-    </div>
-    </div>
+  
     <!---->
     <!--            </div>-->
     <!--            <div class="add_articals">-->
@@ -119,35 +102,56 @@
     <!---->
     <!---->
     <!--            </div>-->
-
-
-    <!-- FIX CONTROLLER -->
-    <div class="fix_controller">
-        <div class="sub_controller">
-            <?php
-            LikeButton::render(get_the_ID());
-            ?>
-
-            <a href="#comment_block_<?php echo get_the_ID(); ?>">
-                <button class="small_text flat text_icon_btn">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/icons/message_20.svg" alt="">
-                    <?php 
-                    // $comments_count = CommentModel::get_comments_count(get_the_ID());
-                    // if ($comments_count > 0): 
-                    ?>
-                        <span class="card_caption_text comments-count"><?php //echo $comments_count; ?></span>
-                    <?php //endif; ?>
-                </button>
-            </a>
-
-            <div class="selector_wrap">
-                <button class="small_text flat text_icon_btn artical_share">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/icons/share_20.svg" alt="">
-
-                    <span class="card_caption_text"></span>
-
-                </button>
                 
+  
+    <?php 
+    if ($comments_data['show_more']): ?>
+        <?php
+        $remaining_total = $comments_data['total'] - CommentListModel::INITIAL_COMMENTS_COUNT;
+        $next_load_count = min(ShowMoreController::LOAD_MORE_COUNT, $remaining_total);
+        ?>
+        <div class="more_btn">
+            <span>
+                <?php 
+                if ($next_load_count === $remaining_total) {
+                    echo "Ещё {$next_load_count} комментариев";
+                } else {
+                    echo "{$next_load_count} из {$remaining_total} комментариев";
+                }
+                ?>
+            </span>
+            <img src="<?php echo get_template_directory_uri(); ?>/img/icons/arrow_down_20.svg" alt="">
+        </div>
+    <?php endif; ?>
+
+        <!-- FIX CONTROLLER -->
+        <div class="fix_controller">
+            <div class="sub_controller">
+                <?php
+                LikeButton::render(get_the_ID());
+                ?>
+
+                <a href="#comment_block_<?php echo get_the_ID(); ?>">
+                    <button class="small_text flat text_icon_btn">
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/icons/message_20.svg" alt="">
+                        <?php 
+                        // $comments_count = CommentModel::get_comments_count(get_the_ID());
+                        // if ($comments_count > 0): 
+                        ?>
+                            <span class="card_caption_text comments-count"><?php //echo $comments_count; ?></span>
+                        <?php //endif; ?>
+                    </button>
+                </a>
+
+                <div class="selector_wrap">
+                    <button class="small_text flat text_icon_btn artical_share">
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/icons/share_20.svg" alt="">
+
+                        <span class="card_caption_text"></span>
+
+                    </button>
+                    
+                </div>
             </div>
         </div>
     </div>
