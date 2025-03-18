@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     function checkActiveTag() {
         const tags = document.querySelectorAll(".artical-page_tag");
         let activeItem = null;
 
-        tags.forEach((tag, index) => {
+        tags.forEach(tag => {
             const tagRect = tag.getBoundingClientRect();
             const postItem = tag.closest(".post-item");
 
@@ -23,6 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     activeItem = tags[i].closest(".post-item");
                     break;
                 }
+            }
+        }
+
+        // Обновляем URL, если нашли активный пост
+        if (activeItem) {
+            let newUrl = activeItem.dataset.postLink;
+            if (newUrl && window.location.href !== newUrl) {
+                history.pushState({}, "", newUrl);
             }
         }
 

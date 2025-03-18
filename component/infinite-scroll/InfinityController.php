@@ -15,7 +15,9 @@ class InfinityController {
             ob_start();
             while ($news_query->have_posts()) {
                 $news_query->the_post();
-                InfinityView::render_infinity($news_query->post); // Подключаем представление для одного поста
+                $links = get_the_permalink(); 
+             
+                InfinityView::render_infinity($news_query->post, $links); // Подключаем представление для одного поста
 
             }
             wp_reset_postdata();

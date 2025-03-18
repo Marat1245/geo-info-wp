@@ -31,8 +31,8 @@ get_header();
 
                 <?php
                     while (have_posts()) : the_post();
-
-                        get_template_part('template-parts/content', 'news');
+                        $post_link = get_the_permalink();
+                        get_template_part('template-parts/content', 'news', array('post_link' => $post_link));
                     endwhile;
                 ?>
 

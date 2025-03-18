@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const LINE_HEIGHT = 24; // Высота одной строки в пикселях
-    const MAX_LINES = 4; // Максимальное количество видимых строк
+    const MAX_LINES = 5; // Максимальное количество видимых строк
     const MAX_HEIGHT = LINE_HEIGHT * MAX_LINES; // Максимальная высота в пикселях
 
     function initCommentText(commentText) {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const realHeight = commentText.scrollHeight;
 
         if (realHeight > MAX_HEIGHT) {
-            // Если текст больше 4 строк, устанавливаем collapsed состояние
+            // Если текст больше 5 строк, устанавливаем collapsed состояние
             commentText.setAttribute('data-collapsed', 'true');
 
             // Находим кнопку "еще"

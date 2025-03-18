@@ -356,6 +356,9 @@ require get_template_directory() . '/component/comments/comment_list/comment_edi
 require get_template_directory() . '/component/comments/comment_list/show_more/script.php';
 
 require get_template_directory() . '/component/comments/comment_list/comment_response/script.php';
+
+//require get_template_directory() . '/component/comments/comment_list/comment_child/script.php';
+
 function register_my_custom_endpoint() {
     register_rest_route('commentlist/v1', '/get_replies_comments2', array(
         'methods' => 'POST',

@@ -1,18 +1,15 @@
 // Обработчик для загрузки дополнительных комментариев
 document.addEventListener('click', function (event) {
-    if (event.target.closest('.comment_more_btn')) {
-        const moreBtn = event.target.closest('.comment_more_btn');
-        const commentsList = moreBtn.closest('.comment_block');
-        const currentCount = commentsList.querySelectorAll('.parent_comment');
-        const postId = commentsList.dataset.postId;
-        let parentId = [];
-        currentCount.forEach(comment => {
-            parentId.push(comment.dataset.commentId);
-        });
+    if (event.target.closest('.under_comment_more_btn')) {
+        const moreBtn = event.target.closest('.under_comment_more_btn');
+        const undercommentsList = moreBtn.closest('.comment_responses');
+        const postId = undercommentsList.closest('.post-item').dataset.postId;
+        const prevNode = undercommentsList.previousElementSibling;
+        const commentId = prevNode.dataset.commentId;
+        var loadedCommentsCount = undercommentsList.querySelectorAll('.response').length;
 
-
-        if (!postId) {
-            console.error('ID поста не найден');
+        if (!commentId || !postId) {
+            console.error('ID комментария или поста не найден');
             return;
         }
 
@@ -20,17 +17,17 @@ document.addEventListener('click', function (event) {
         moreBtn.classList.add('loading');
 
         // Отправляем AJAX запрос
-        fetch(show_more.ajaxurl, {
+        fetch(show_undercomment.ajaxurl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
-                action: 'load_more_comments',
+                action: 'show_undercomment',
+                comment_id: commentId,
                 post_id: postId,
-                offset: currentCount,
-                parent_id: JSON.stringify(parentId),
-                nonce: show_more.nonce,
+                nonce: show_undercomment.nonce,
+                loadedCommentsCount: loadedCommentsCount,
             }),
         })
             .then(response => {
@@ -41,24 +38,27 @@ document.addEventListener('click', function (event) {
             })
             .then(response => {
                 if (response.success) {
-
                     // Добавляем новые комментарии
                     moreBtn.insertAdjacentHTML('beforebegin', response.data.html);
-                    console.log(response.data.show_more);
-                    // Если больше нет комментариев для загрузки, скрываем кнопку
-                    if (!response.data.show_more) {
+                    const totalCount = response.data.total_count - response.data.loadedCommentsCount;
+                    console.log(totalCount);
+                    if (totalCount <= 0) {
                         moreBtn.remove();
-                    } else {
-                        // Обновляем текст кнопки
-                        const btnText = moreBtn.querySelector('span');
-                        if (btnText) {
-                            if (response.data.next_load_count === response.data.remaining_total) {
-                                btnText.textContent = `Ещё ${response.data.next_load_count} комментариев`;
-                            } else {
-                                btnText.textContent = `${response.data.next_load_count} из ${response.data.remaining_total} комментариев`;
-                            }
-                        }
+
                     }
+                    else {
+                        let word = 'ответ';
+                        if (totalCount % 10 === 1 && totalCount % 100 !== 11) {
+                            word = 'ответ';
+                        } else if ([2, 3, 4].includes(totalCount % 10) && ![12, 13, 14].includes(totalCount % 100)) {
+                            word = 'ответа';
+                        } else {
+                            word = 'ответов';
+                        }
+                        moreBtn.querySelector('span').innerHTML = totalCount + ' ' + word;
+                    }
+
+
                 } else {
                     console.error('Ошибка загрузки комментариев:', response.data);
                     alert('Произошла ошибка при загрузке комментариев. Пожалуйста, попробуйте позже.');

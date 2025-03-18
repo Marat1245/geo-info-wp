@@ -7,88 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const MAX_LENGTH = 2500;
     const SHOW_COUNTER_AT = 2250; // Показывать счетчик, когда осталось 250 символов
 
-    // Функция для преобразования HTML в текст с переносами строк
-    // const getContentEditableText = (element) => {
-    //     // Получаем HTML контент
-    //     let html = element.innerHTML;
 
-    //     // Заменяем <div> и </div> на переносы строк
-    //     html = html.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '');
-
-    //     // Удаляем все остальные HTML теги
-    //     html = html.replace(/<[^>]+>/g, '');
-
-    //     // Декодируем HTML сущности
-    //     let txt = document.createElement("textarea");
-    //     txt.innerHTML = html;
-    //     let decodedText = txt.value;
-
-    //     // Убираем множественные переносы строк и пробелы
-    //     decodedText = decodedText.replace(/\n{3,}/g, '\n\n');
-
-    //     // Убираем пробелы в начале и конце каждой строки
-    //     decodedText = decodedText.split('\n')
-    //         .map(line => line.trim())
-    //         .join('\n')
-    //         .trim();
-
-    //     return decodedText;
-    // };
-
-    // Функция для ограничения текста по максимальной длине
-    // const truncateText = (text) => {
-    //     return text.length > MAX_LENGTH ? text.substring(0, MAX_LENGTH) : text;
-    // };
-
-    // Функция обновления счетчика символов
-    // const updateCharCounter = (commentInput, charCounter) => {
-    //     const text = getContentEditableText(commentInput);
-    //     const length = text.length;
-    //     const currentCharsSpan = charCounter.querySelector('.current_chars');
-
-    //     if (currentCharsSpan) {
-    //         currentCharsSpan.textContent = length;
-    //     }
-
-    //     // Показываем счетчик, если осталось менее 250 символов до лимита
-    //     if (length >= SHOW_COUNTER_AT) {
-    //         charCounter.style.display = 'block';
-    //     } else {
-    //         charCounter.style.display = 'none';
-    //     }
-
-    //     // Добавляем красный цвет, если превышен лимит
-    //     if (length > MAX_LENGTH) {
-    //         charCounter.classList.add('exceeded');
-    //     } else {
-    //         charCounter.classList.remove('exceeded');
-    //     }
-    // };
-
-    // Функция обновления состояния кнопки
-    // const updateSubmitButton = (commentInput, submitButton) => {
-    //     const content = getContentEditableText(commentInput);
-    //     const img = submitButton.querySelector('img');
-    //     const length = content.length;
-
-    //     if (!content || length > MAX_LENGTH) {
-    //         submitButton.disabled = true;
-    //         if (img) {
-    //             img.src = img.dataset.defaultIcon;
-    //         }
-    //     } else {
-    //         submitButton.disabled = false;
-    //         if (img) {
-    //             img.src = img.dataset.activeIcon;
-    //         }
-    //     }
-    // };
 
     // Функция инициализации формы комментария
     const initCommentForm = (commentForm) => {
         const commentInput = commentForm.querySelector('.comment_input');
         const submitButton = commentForm.querySelector('button[type="submit"]');
         const charCounter = commentForm.querySelector('.comment_char_counter');
+
 
         if (!commentInput || !submitButton || !charCounter) return;
 
@@ -97,53 +23,55 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCharCounter(commentInput, charCounter, SHOW_COUNTER_AT, MAX_LENGTH);
 
 
-        // Обработка вставки текста
         commentInput.addEventListener('paste', (e) => {
             e.preventDefault();
 
-            // Получаем текущий текст
-            const currentText = getContentEditableText(commentInput);
-            let pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            // Получаем текст из буфера обмена
+            const pastedText = (e.clipboardData || window.clipboardData).getData('text');
 
-            // Получаем позицию курсора
+            // Получаем текущий текст
+            const currentText = commentInput.textContent;
+
+
+            // Вычисляем, сколько символов можно вставить
+            const remainingSpace = 2500 - currentText.length;
+
+
+            // Обрезаем вставляемый текст, если нужно
+            const trimmedText = pastedText.slice(0, remainingSpace);
+
+
+            // Получаем текущее выделение
             const selection = window.getSelection();
             if (!selection.rangeCount) return;
 
             const range = selection.getRangeAt(0);
-            const startOffset = range.startOffset;
 
-            // Вычисляем, сколько символов мы можем вставить
-            const remainingSpace = MAX_LENGTH - currentText.length + (selection.toString().length);
+            // Удаляем выделенный текст (если есть)
+            range.deleteContents();
 
-            if (remainingSpace <= 0) {
-                return; // Если места нет, не вставляем ничего
-            }
-
-            // Обрезаем вставляемый текст, если нужно
-            if (pastedText.length > remainingSpace) {
-                pastedText = pastedText.substring(0, remainingSpace);
-            }
-
-            // Удаляем выделенный текст
-            selection.deleteFromDocument();
-
-            // Вставляем новый текст
-            const textNode = document.createTextNode(pastedText);
+            // Вставляем обрезанный текст в текущую позицию курсора
+            const textNode = document.createTextNode(trimmedText);
             range.insertNode(textNode);
 
             // Перемещаем курсор в конец вставленного текста
-            range.setStartAfter(textNode);
-            range.setEndAfter(textNode);
-            selection.removeAllRanges();
-            selection.addRange(range);
+            const newRange = document.createRange();
+            newRange.setStart(textNode, textNode.length);
+            newRange.setEnd(textNode, textNode.length);
 
-            // Обновляем состояние
-            updateSubmitButton(commentInput, submitButton, MAX_LENGTH);
-            updateCharCounter(commentInput, charCounter, SHOW_COUNTER_AT, MAX_LENGTH);
+            selection.removeAllRanges();
+            selection.addRange(newRange);
+
+            // Обновляем состояние (если нужно)
+            updateSubmitButton(commentInput, submitButton, 2500);
+            updateCharCounter(commentInput, charCounter, SHOW_COUNTER_AT, 2500);
         });
+
+
 
         // Обработка ввода текста
         commentInput.addEventListener('input', (e) => {
+            console.log('Input event triggered');
             const text = getContentEditableText(commentInput);
 
             if (text.length > MAX_LENGTH) {
@@ -262,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const forms = node.classList.contains('comment_input_wrap')
                         ? [node]
                         : node.querySelectorAll('.comment_input_wrap');
+
                     forms.forEach(initCommentForm);
                 }
             });

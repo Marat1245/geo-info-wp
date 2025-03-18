@@ -119,6 +119,9 @@
 
 }
 
+.news_list_page .new_list {
+    max-width: 60rem;
+}
 
 /* news END */
 
@@ -1005,6 +1008,10 @@
 /* donat_block END */
 
 /* COMMENT */
+.parent_comment {
+    margin-top: var(--32);
+}
+
 .comment_title {
     font-family: var(--display04_font_family);
     font-size: var(--display04_font_size);
@@ -1018,7 +1025,7 @@
 .comment_block {
     display: flex;
     flex-direction: column;
-    gap: var(--28);
+    gap: var(--04);
 }
 
 .comment_block [contenteditable="true"] {
@@ -1190,6 +1197,7 @@
 .comment_input.placeholder:before {
     color: var(--color_text_dark);
     opacity: 0.5;
+    pointer-events: none;
 }
 
 .delete_comment_wrap {
@@ -1299,6 +1307,10 @@
 
 .delete_comment_wrap .small_text:hover {
     opacity: 0.8;
+}
+
+.comment_more_btn {
+    margin-top: var(--40);
 }
 
 /* Стили для редактирования комментария */
@@ -1424,9 +1436,6 @@
 
 }
 
-.response:first-child {
-    margin-top: var(--20);
-}
 
 /* COMMENT END*/
 /* add_articals */

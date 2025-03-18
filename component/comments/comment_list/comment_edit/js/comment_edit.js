@@ -54,24 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const content = getContentEditableText(contentEditable);
 
-
-                if (!content) {
-                    alert('Пожалуйста, введите текст комментария');
-                    return;
-                }
-
-                if (content.length > MAX_LENGTH) {
-                    alert(`Максимальная длина комментария ${MAX_LENGTH} символов`);
-                    return;
-                }
-
-                // Подробное логирование для отладки
-                // console.log('Original content:', JSON.stringify(originalContent));
-                // console.log('New content:', JSON.stringify(content));
-                // console.log('Are equal:', content === originalContent);
-                // console.log('Original length:', originalContent.length);
-                // console.log('New length:', content.length);
-
                 // Проверяем, изменился ли текст
                 if (content === originalContent) {
                     // Если текст не изменился, просто закрываем форму редактирования
@@ -81,11 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
 
-                // Проверяем, что у нас есть правильный URL для AJAX
-                if (!comment_edit.ajaxurl) {
-                    console.error('AJAX URL не определен');
-                    return;
-                }
 
                 const formData = new FormData();
                 formData.append('action', 'edit_comment');
@@ -135,107 +112,64 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Обработка счетчика символов
-        if (contentEditable && charCounter && currentChars) {
-            const updateCharCounter = () => {
-                const text = getContentEditableText(contentEditable);
-                const length = text.length;
-                currentChars.textContent = length;
+        // // Обработка счетчика символов
+        // if (contentEditable && charCounter && currentChars) {
+        //     const updateCharCounter = () => {
+        //         const text = getContentEditableText(contentEditable);
+        //         const length = text.length;
+        //         currentChars.textContent = length;
 
-                if (length >= SHOW_COUNTER_AT) {
-                    charCounter.style.display = 'block';
-                } else {
-                    charCounter.style.display = 'none';
-                }
+        //         if (length >= SHOW_COUNTER_AT) {
+        //             charCounter.style.display = 'block';
+        //         } else {
+        //             charCounter.style.display = 'none';
+        //         }
 
-                if (length > MAX_LENGTH) {
-                    charCounter.classList.add('exceeded');
-                } else {
-                    charCounter.classList.remove('exceeded');
-                }
-            };
+        //         if (length > MAX_LENGTH) {
+        //             charCounter.classList.add('exceeded');
+        //         } else {
+        //             charCounter.classList.remove('exceeded');
+        //         }
+        //     };
 
-            // Предотвращаем вставку текста через контекстное меню
-            contentEditable.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-            });
+        //     // Предотвращаем вставку текста через контекстное меню
+        //     contentEditable.addEventListener('contextmenu', (e) => {
+        //         e.preventDefault();
+        //     });
 
-            // Обработка вставки текста
-            contentEditable.addEventListener('paste', (e) => {
-                e.preventDefault();
 
-                // Получаем текущий текст
-                const currentText = getContentEditableText(contentEditable);
-                let pastedText = (e.clipboardData || window.clipboardData).getData('text');
 
-                // Получаем позицию курсора
-                const selection = window.getSelection();
-                if (!selection.rangeCount) return;
+        //     // Обработка ввода текста
+        //     contentEditable.addEventListener('input', (e) => {
+        //         const text = getContentEditableText(contentEditable);
+        //         ;
+        //         if (text.length > MAX_LENGTH) {
+        //             e.preventDefault();
 
-                const range = selection.getRangeAt(0);
-                const startOffset = range.startOffset;
+        //             // Обрезаем текст до максимальной длины
+        //             const truncated = truncateText(text, MAX_LENGTH);
 
-                // Вычисляем, сколько символов мы можем вставить
-                const remainingSpace = MAX_LENGTH - currentText.length + (selection.toString().length);
+        //             // Сохраняем позицию курсора
+        //             const selection = window.getSelection();
+        //             const range = document.createRange();
 
-                if (remainingSpace <= 0) {
-                    return; // Если места нет, не вставляем ничего
-                }
+        //             // Обновляем содержимое с сохранением переносов строк
+        //             contentEditable.innerHTML = truncated.split('\n').map(line => `<div>${line}</div>`).join('');
 
-                // Обрезаем вставляемый текст, если нужно
-                if (pastedText.length > remainingSpace) {
-                    pastedText = pastedText.substring(0, remainingSpace);
-                }
+        //             // Восстанавливаем курсор в конец текста
+        //             range.selectNodeContents(contentEditable);
+        //             range.collapse(false);
+        //             selection.removeAllRanges();
+        //             selection.addRange(range);
+        //         }
 
-                // Удаляем выделенный текст
-                selection.deleteFromDocument();
+        //         updateCharCounter();
+        //         updateSubmitButton(contentEditable, saveButton, MAX_LENGTH);
+        //     });
 
-                // Вставляем новый текст
-                const textNode = document.createTextNode(pastedText);
-                range.insertNode(textNode);
-
-                // Перемещаем курсор в конец вставленного текста
-                range.setStartAfter(textNode);
-                range.setEndAfter(textNode);
-                selection.removeAllRanges();
-                selection.addRange(range);
-
-                // Обновляем счетчик
-                updateCharCounter();
-
-            });
-
-            // Обработка ввода текста
-            contentEditable.addEventListener('input', (e) => {
-                const text = getContentEditableText(contentEditable);
-                console.log(text);
-                if (text.length > MAX_LENGTH) {
-                    e.preventDefault();
-
-                    // Обрезаем текст до максимальной длины
-                    const truncated = truncateText(text, MAX_LENGTH);
-
-                    // Сохраняем позицию курсора
-                    const selection = window.getSelection();
-                    const range = document.createRange();
-
-                    // Обновляем содержимое с сохранением переносов строк
-                    contentEditable.innerHTML = truncated.split('\n').map(line => `<div>${line}</div>`).join('');
-
-                    // Восстанавливаем курсор в конец текста
-                    range.selectNodeContents(contentEditable);
-                    range.collapse(false);
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                }
-
-                updateCharCounter();
-                updateSubmitButton(contentEditable, saveButton, MAX_LENGTH);
-            });
-
-            // Инициализация начального состояния счетчика
-            updateCharCounter();
-        }
+        //     // Инициализация начального состояния счетчика
+        //     updateCharCounter();
+        // }
     });
 });
 

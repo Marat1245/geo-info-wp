@@ -15,7 +15,7 @@ class CommentResponseView {
                     <button type="button" class="flat small_icon cancel_response">
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/img/icons/close_20.svg') ?>" alt="Отменить">
                     </button>
-                    <button type="button" class="flat small_icon save_response" data-parent-id="<?php echo esc_attr($parent_comment_id); ?>">
+                    <button type="submit" class="flat small_icon save_response" data-parent-id="<?php echo esc_attr($parent_comment_id); ?>">
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/img/icons/leter_36.svg') ?>" 
                              alt="Отправить"
                              data-default-icon="<?php echo esc_url(get_template_directory_uri() . '/img/icons/leter_36.svg'); ?>" 

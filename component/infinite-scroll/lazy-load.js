@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const MAX_POSTS = 20;
     let currentPostId = 0;
 
-    if(!postContainer){
+    if (!postContainer) {
         return
     }
     // Получаем элемент, у которого есть нужный класс
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (className.startsWith('postid-')) {
                 // Извлекаем post ID
                 currentPostId = className.split('-')[1]; // Разделяем строку по '-' и берем второй элемент
-                 // console.log('Post ID:', currentPostId); // Выводим post ID в консоль
+                // console.log('Post ID:', currentPostId); // Выводим post ID в консоль
                 break; // Выходим из цикла после нахождения ID
             }
         }
@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         let formData = new FormData();
-            formData.append('action', 'load_infinity');
-            formData.append('page', currentPage);
-            formData.append('nonce', typeof geoInfoInfinity !== 'undefined' ? geoInfoInfinity.nonce : '');
-            formData.append("post_id", currentPostId);
+        formData.append('action', 'load_infinity');
+        formData.append('page', currentPage);
+        formData.append('nonce', typeof geoInfoInfinity !== 'undefined' ? geoInfoInfinity.nonce : '');
+        formData.append("post_id", currentPostId);
         fetch(geoInfoInfinity.ajaxurl, {
             method: 'POST',
             body: formData
@@ -101,3 +101,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     loadMorePosts()
 });
+

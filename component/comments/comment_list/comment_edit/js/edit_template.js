@@ -11,7 +11,7 @@ export const edit_template = (currentContent, comment_edit, commentId) => {
                 <button type="button" class="flat small_icon cancel_edit">
                     <img src="${comment_edit.templateUrl}/img/icons/close_20.svg" alt="Отменить">
                 </button>
-                <button type="button" class="flat small_icon save_edit" data-comment-id="${commentId}">
+                <button type="submit" class="flat small_icon save_edit" data-comment-id="${commentId}">
                     <img src="${comment_edit.templateUrl}/img/icons/leter_36.svg" 
                          alt="Сохранить"
                          data-default-icon="${comment_edit.templateUrl}/img/icons/leter_36.svg" 

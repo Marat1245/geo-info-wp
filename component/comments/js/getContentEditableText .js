@@ -1,7 +1,7 @@
 // Функция для преобразования HTML в текст с переносами строк
 export const getContentEditableText = (element) => {
     // Получаем HTML контент
-    let html = element.innerHTML;
+    let html = element.innerHTML || element.textContent;
 
     // Заменяем <div> и </div> на переносы строк
     html = html.replace(/<div>/gi, '\n').replace(/<\/div>/gi, '');

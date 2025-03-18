@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Вставляем имя автора в поле ввода
             const input = responseForm.querySelector('.comment_input');
             if (input) {
-                input.innerHTML = `@${authorName},&nbsp;`;
+                input.innerHTML = `${authorName},&nbsp;`;
                 // Устанавливаем фокус и перемещаем курсор в конец
                 input.focus();
                 const range = document.createRange();
@@ -63,81 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Обработка счетчика символов и активации кнопки
-    document.addEventListener('input', function (e) {
-        const input = e.target.closest('.comment_input');
-        if (!input) return;
 
-        const form = input.closest('.comment_response_form');
-        if (!form) return;
 
-        const counter = form.querySelector('.comment_char_counter');
-        const currentChars = form.querySelector('.current_chars');
-        const saveButton = form.querySelector('.save_response');
-        const icon = saveButton.querySelector('img');
-        const length = input.textContent.length;
-
-        // Обновляем счетчик символов
-        currentChars.textContent = length;
-
-        // Показываем/скрываем счетчик
-        if (length >= SHOW_COUNTER_AT) {
-            counter.style.display = 'block';
-            if (length > MAX_LENGTH) {
-                counter.classList.add('exceeded');
-            } else {
-                counter.classList.remove('exceeded');
-            }
-        } else {
-            counter.style.display = 'none';
-        }
-
-        // Активируем/деактивируем кнопку и меняем иконку
-        if (saveButton && icon) {
-            if (length > 0 && length <= MAX_LENGTH) {
-                saveButton.disabled = false;
-                icon.src = icon.dataset.activeIcon;
-            } else {
-                saveButton.disabled = true;
-                icon.src = icon.dataset.defaultIcon;
-            }
-        }
-
-        // Ограничиваем длину текста
-        if (length > MAX_LENGTH) {
-            input.textContent = input.textContent.substring(0, MAX_LENGTH);
-        }
-    });
-
-    // Обработка вставки текста
-    document.addEventListener('paste', function (e) {
-        const input = e.target.closest('.comment_input');
-        if (!input) return;
-
-        e.preventDefault();
-        const currentText = input.textContent;
-        let pastedText = (e.clipboardData || window.clipboardData).getData('text');
-
-        // Вычисляем, сколько символов можно вставить
-        const remainingSpace = MAX_LENGTH - currentText.length;
-
-        if (remainingSpace <= 0) return;
-
-        // Обрезаем вставляемый текст, если нужно
-        if (pastedText.length > remainingSpace) {
-            pastedText = pastedText.substring(0, remainingSpace);
-        }
-
-        // Вставляем текст
-        const selection = window.getSelection();
-        const range = selection.getRangeAt(0);
-        range.deleteContents();
-        range.insertNode(document.createTextNode(pastedText));
-    });
 
     // Обработка отправки ответа
     document.addEventListener('click', function (e) {
         const saveButton = e.target.closest('.save_response');
+
         if (!saveButton || saveButton.disabled) return;
 
         const form = saveButton.closest('.comment_response_form');
@@ -167,19 +99,34 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(response => {
-                if (response.success) {
-                    // Находим родительский комментарий
-                    const parentComment = form.closest('.user_comment');
-                    if (!parentComment) return;
 
+                if (response.success) {
+
+                    // Находим родительский комментарий
+                    const parentComment = form.closest('.parent_comment');
+
+                    const childComment = form.closest('.response');
                     // Создаем временный контейнер для парсинга HTML
                     const temp = document.createElement('div');
+                    temp.className = 'comment_responses';
                     temp.innerHTML = response.data.html;
                     const newComment = temp.firstElementChild;
 
+                    if (childComment) {
 
-                    // Вставляем новый комментарий после родительского
-                    parentComment.querySelector('.comment_responses').appendChild(newComment);
+                        // Вставляем новый комментарий после chiledComment
+                        childComment.after(newComment);
+                    } else {
+
+                        // Находим следующий элемент после родительского комментария
+                        let nextComment = parentComment.nextElementSibling;
+                        // Если блок с дочерними комментариями существует
+                        if (nextComment) {
+                            // Перемещаем следующий комментарий в начало блока .comment_responses
+                            nextComment.after(newComment);
+                        }
+                    }
+
 
                     // Скрываем и очищаем форму
                     form.style.display = 'none';

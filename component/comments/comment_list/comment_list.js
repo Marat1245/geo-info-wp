@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
-                action: 'load_more_comments',
+                action: 'load_more',
                 post_id: postId,
                 offset: offset,
                 nonce: comment_controller.nonce
@@ -24,15 +24,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.success) {
                     // Добавляем новые комментарии
                     const commentsContainer = loadMoreButton.previousElementSibling;
+
                     commentsContainer.insertAdjacentHTML('beforeend', data.data.html);
 
                     // Обновляем смещение
                     loadMoreButton.dataset.offset = offset + 5;
 
                     // Скрываем кнопку, если больше нет комментариев
-                    if (!data.data.has_more) {
-                        loadMoreButton.style.display = 'none';
-                    }
+                    // if (!data.data.has_more) {
+
+                    //     loadMoreButton.style.display = 'none';
+                    // }
                 }
             });
     });

@@ -1,4 +1,10 @@
-<div class="content_block artical_wrap post-item" data-post-id="<?php the_ID(); ?>">
+<?php
+// Получаем параметры, переданные через get_template_part()
+$post_link = $args['post_link'] ?? '';
+
+
+?>
+<div class="content_block artical_wrap post-item" data-post-id="<?php the_ID(); ?>" data-post-link="<?php echo esc_url($post_link); ?>">
 
     <div class="artical-page_tag">
         <?php
@@ -106,11 +112,12 @@
   
     <?php 
     if ($comments_data['show_more']): ?>
-        <?php
+        <?php             
+       
         $remaining_total = $comments_data['total'] - CommentListModel::INITIAL_COMMENTS_COUNT;
         $next_load_count = min(ShowMoreController::LOAD_MORE_COUNT, $remaining_total);
         ?>
-        <div class="more_btn">
+        <div class="more_btn comment_more_btn">
             <span>
                 <?php 
                 if ($next_load_count === $remaining_total) {
@@ -118,6 +125,8 @@
                 } else {
                     echo "{$next_load_count} из {$remaining_total} комментариев";
                 }
+
+                
                 ?>
             </span>
             <img src="<?php echo get_template_directory_uri(); ?>/img/icons/arrow_down_20.svg" alt="">
@@ -134,12 +143,9 @@
                 <a href="#comment_block_<?php echo get_the_ID(); ?>">
                     <button class="small_text flat text_icon_btn">
                         <img src="<?php echo get_template_directory_uri(); ?>/img/icons/message_20.svg" alt="">
-                        <?php 
-                        // $comments_count = CommentModel::get_comments_count(get_the_ID());
-                        // if ($comments_count > 0): 
-                        ?>
-                            <span class="card_caption_text comments-count"><?php //echo $comments_count; ?></span>
-                        <?php //endif; ?>
+                      
+                            <span class="card_caption_text comments-count"></span>
+                     
                     </button>
                 </a>
 

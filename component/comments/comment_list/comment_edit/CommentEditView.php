@@ -14,7 +14,7 @@ class CommentEditView
                     <span class="current_chars">0</span>/2500
                 </div>
                 <div class="comment_right_block">
-                    <button type="button" class="flat small_icon save_edit" data-comment-id="<?php echo esc_attr($comment_id); ?>">
+                    <button type="submit" class="flat small_icon save_edit" data-comment-id="<?php echo esc_attr($comment_id); ?>">
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/img/icons/leter_36.svg') ?>" 
                              alt="Сохранить"
                              data-default-icon="<?php echo esc_url(get_template_directory_uri() . '/img/icons/leter_36.svg'); ?>" 

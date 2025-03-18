@@ -3,7 +3,7 @@ class CommentListModel {
     /**
      * Количество комментариев для первоначального отображения
      */
-    const INITIAL_COMMENTS_COUNT = 500;
+    const INITIAL_COMMENTS_COUNT = 5;
 
     public static function get_comments($post_id) {
         // Получаем общее количество комментариев
@@ -11,29 +11,45 @@ class CommentListModel {
 
         $comments = get_comments(array(
             'post_id' => $post_id,
-            'number' => self::INITIAL_COMMENTS_COUNT,
+            //'number' => self::INITIAL_COMMENTS_COUNT,
             'order' => 'DESC',
             'orderby' => 'comment_date',
             'status' => 'approve',
+            //'parent' => 0,
            
         ));
     
+         $commentsTest = ShowMoreModel::build_comment_tree($comments);
+         
+         $parents_only = array_map(function ($parents_only) {
+            return [
+                'id' => $parents_only['id'],
+                'content' => $parents_only['content'],
+                'author' => $parents_only['author'],
+                'date' => $parents_only['date'],
+                'user_id' => $parents_only['user_id'],
+                'comment_approved' => $parents_only['comment_approved'],           
+                'parent' => $parents_only['parent'],
 
+            ];
+        }, array_slice($commentsTest, 0, 5));
+       
         $formatted_comments = array();
     
-        foreach ($comments as $comment) {     
+        foreach ($parents_only as $comment) {     
            
-            $is_deleted = get_comment($comment->comment_ID)->comment_approved === 'trash';
+            $is_deleted = $comment['comment_approved'] === 'trash';
             $comment_class = $is_deleted ? 'user_comment comment-deleted' : 'user_comment';
 
             $formatted_comments[] = array(
-                'id' => $comment->comment_ID,
-                'author' => $comment->comment_author,
-                'content' => $comment->comment_content,
-                'date' => time_ago_short($comment->comment_date),
-                'user_id' => $comment->user_id,    
+                'id' => $comment['id'],
+                'author' => $comment['author'],
+                'content' => $comment['content'],
+                'date' => $comment['date'],
+                'user_id' => $comment['user_id'],    
                 'is_deleted' => $is_deleted ? 'display: none;' : '',
-                'comment_class' => $comment_class
+                'comment_class' => $comment_class,
+                'parent' => $comment['parent']
             );
         }
 
@@ -44,41 +60,35 @@ class CommentListModel {
         );
     }
 
-    // public static function get_replies_comments($comment_id) {
+    public static function get_parrent_comments($post_id) {
+        $comments = get_comments(array(
+            'post_id' => $post_id,
+            'order' => 'DESC',
+            'orderby' => 'comment_date',
+            'status' => 'approve',
+        ));
+     
+        $under_comments = array();
     
-        
-    //     $replies = get_comments(array(
-    //         'parent' => $comment_id,
-    //         'status' => 'approve',
-    //         'order' => 'DESC',
-    //         'orderby' => 'comment_date',
-        
-    //     ));
-        
-   
-        
-    //     $formatted_replies = array();
-        
-    //     if (!empty($replies)) {
-    //         foreach ($replies as $reply) {           
-    //             $is_deleted = $reply->comment_approved === 'trash';
-    //             $comment_class = $is_deleted ? 'comment-deleted' : '';
-                  
-    //             $formatted_replies[] = array(
-    //                 'id' => $reply->comment_ID,
-    //                 'author' => $reply->comment_author,
-    //                 'content' => $reply->comment_content,
-    //                 'date' => time_ago_short($reply->comment_date),
-    //                 'user_id' => $reply->user_id,
-    //                 'is_deleted' => $is_deleted ? 'display: none;' : '',
-    //                 'comment_class' => $comment_class
-    //             );
-    //         }
-    //     }
-        
-       
-    //     return $formatted_replies;
-    // }
+        foreach ($comments as $comment) {     
+           
+            $is_deleted = get_comment($comment->comment_ID)->comment_approved === 'trash';
+            $comment_class = $is_deleted ? 'user_comment comment-deleted' : 'user_comment';
+
+            $under_comments[] = array(
+                'id' => $comment->comment_ID,
+                'author' => $comment->comment_author,
+                'content' => $comment->comment_content,
+                'date' => time_ago_short($comment->comment_date),
+                'user_id' => $comment->user_id,    
+                'is_deleted' => $is_deleted ? 'display: none;' : '',
+                'comment_class' => $comment_class,
+                'parent' => $comment->comment_parent,
+               
+            );
+        }
+        return  $under_comments;
+    }
     
     
     

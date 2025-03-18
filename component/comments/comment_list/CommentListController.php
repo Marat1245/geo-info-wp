@@ -14,15 +14,17 @@ class CommentListController {
         
         
         ob_start();
-        CommentListView::render_comments($comments_data['comments']);
+        CommentListView::render_comments($comments_data['comments'], $parent_comment_id,  $post_id);
         $html = ob_get_clean();
-
+       
         wp_send_json_success(array(
             'html' => $html,
-            'has_more' => $comments_data['has_more']
+           // 'has_more' => $comments_data['has_more']
+           
         ));
+        wp_die(); 
     }
 }
 
-add_action('wp_ajax_load_more_comments', array('CommentListController', 'handle_load_more'));
-add_action('wp_ajax_nopriv_load_more_comments', array('CommentListController', 'handle_load_more')); 
+add_action('wp_ajax_load_more', array('CommentListController', 'handle_load_more'));
+add_action('wp_ajax_nopriv_load_more', array('CommentListController', 'handle_load_more')); 
