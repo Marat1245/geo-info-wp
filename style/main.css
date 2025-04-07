@@ -918,7 +918,7 @@
 
 .preprint_plug {
     background-color: var(--color_background_grey);
-    width: 22.4rem;
+    width: 20rem;
     height: 100%;
     border-radius: 0px 6px 6px 0px;
 }
@@ -1645,10 +1645,7 @@
     position: relative;
 }
 
-.tags_input_wrap input {
-    height: 2.8rem;
-    margin-bottom: 0;
-}
+
 
 .tags_input_wrap button {}
 
@@ -1686,9 +1683,10 @@
 
 }
 
-.search_input_wrap input {
-    height: 2.8rem;
+.search_input_wrap input,
+.tags_input_wrap input {
     margin-bottom: 0;
+    height: 3.8rem;
 }
 
 /* LIST SEARCH END*/

@@ -17,6 +17,7 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
+
     <?php wp_head(); ?>
 </head>
 
@@ -63,7 +64,8 @@
                                         src="<?php echo esc_url(get_template_directory_uri() . '/img/icons/user_24.svg'); ?>"
                                         alt="Аватар">
                                     <div class="profile_view_text">
-                                        <span>Садыров Марат</span>
+                                        <span><?php echo esc_html(wp_get_current_user()->user_login); ?></span>
+                                        <!-- <span>Садыров Марат</span> -->
                                         <span class="card_caption_text">Перейти в профиль</span>
                                     </div>
                                 </div>

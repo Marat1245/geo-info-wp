@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     // Вешаем обработчик на кнопки и аватары через делегирование
     $(document).on("click", '[data-log="on"]', function (e) {
-        if ($(window).width() > 760) {
+        if ($(window).width() > 860) {
             openSelector($(this), e);
         }
     });
@@ -32,10 +32,10 @@ $(document).ready(function () {
             selector.css({ display: "block" });
 
             // Получаем размеры и позиции
-            const buttonRect = button[0].getBoundingClientRect();
-            const selectorRect = selector[0].getBoundingClientRect();
+            // const buttonRect = button[0].getBoundingClientRect();           
+            // const selectorRect = selector[0].getBoundingClientRect();
             const windowWidth = window.innerWidth;
-            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            // const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
             // Вычисляем, где кликнули: слева или справа
             const clickX = e.clientX; // Координата X клика

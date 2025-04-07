@@ -110,7 +110,7 @@ html {
     --sponsor: 4rem;
     --preprints: 3.6rem;
     --ads: 1.2rem;
-    --mobile_menu: 1.2rem 0.8rem 10rem 0.8rem;
+    --mobile_menu: 1.2rem 1.2rem 10rem 1.2rem;
     --profile_block: 3.2rem;
     --profile_block_right: 2.4rem 3.2rem 4.8rem;
     --artical: 4.8rem;
@@ -493,7 +493,8 @@ nav {
     color: var(--color_text_grey)
 }
 
-nav li a {
+nav li a,
+.menu_ul li a {
 
     /* Body/Body 2 */
     font-family: var(--body02_font_family);

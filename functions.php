@@ -553,6 +553,47 @@ add_filter('comments_open', 'enable_comments_globally', 10, 2);
 
 
 
+// 
+// Добавляем мета-теги OpenGraph и Twitter Card
+// 
+function add_social_meta_tags()
+{
+    // Основные данные
+    $site_name = get_bloginfo('name');
+    $title = is_singular() ? get_the_title() : $site_name;
+    $url = esc_url((isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+    $description = is_singular() ? get_the_excerpt() : get_bloginfo('description');
+
+    // Изображение (приоритет: featured image → логотип темы → дефолтное изображение)
+    $og_image = has_post_thumbnail()
+        ? get_the_post_thumbnail_url(get_the_ID(), 'full')
+        : (get_theme_mod('custom_logo')
+            ? wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full')
+            : get_template_directory_uri() . '/img/default-social.jpg');
+
+
+    echo '<link rel="icon" href="' . esc_url(get_template_directory_uri() . '/img/favicon.ico') . '" sizes="any">';
+
+    // OpenGraph
+    echo '<meta property="og:type" content="' . (is_singular() ? 'article' : 'website') . '">' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr($site_name) . '">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($title) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr(wp_strip_all_tags($description)) . '">' . "\n";
+    echo '<meta property="og:url" content="' . $url . '">' . "\n";
+    echo '<meta property="og:image" content="' . esc_url($og_image) . '">' . "\n";
+    echo '<meta property="og:image:width" content="1200">' . "\n";  // Рекомендуемый размер
+    echo '<meta property="og:image:height" content="630">' . "\n";
+
+    // Twitter Card (для красивого отображения в Twitter)
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+    echo '<meta name="twitter:title" content="' . esc_attr($title) . '">' . "\n";
+    echo '<meta name="twitter:description" content="' . esc_attr(wp_strip_all_tags($description)) . '">' . "\n";
+    echo '<meta name="twitter:image" content="' . esc_url($og_image) . '">' . "\n";
+}
+add_action('wp_head', 'add_social_meta_tags', 5);
+
+
+
 
 
 

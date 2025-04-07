@@ -18,7 +18,7 @@
         </div>
     </a>
     <!-- Остальные пункты меню -->
-    <a href="./artical_list.php">
+    <a href="/news/">
         <div class="mobile_menu_item">
             <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_2220_5268)">
@@ -92,7 +92,7 @@
                     <img class="profile_view_ava" src="<?php echo get_template_directory_uri(); ?>/img/icons/user_24.svg"
                         alt="Аватар">
                     <div class="profile_view_text">
-                        <span>Садыров Марат</span>
+                        <span><?php echo esc_html(wp_get_current_user()->user_login); ?></span>
                         <span class="card_caption_text">Перейти в профиль</span>
                     </div>
                 </div>
@@ -104,6 +104,14 @@
         <?php endif; ?>
 
         <?php get_template_part('component/menu/menu'); ?>
+        <hr>
+        <ul class="menu_ul">
+            <li>
+                <a href="<?php echo wp_logout_url(home_url()); ?>">
+                    Выход
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="bg_dark"></div>

@@ -233,6 +233,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: var(--color_background_grey);
     }
 
     .preprints_artical_img {
@@ -508,6 +509,10 @@
         display: none;
     }
 
+    .mobile_list_wrap .main-navigation {
+        display: block;
+    }
+
     .news_second {
         flex-wrap: wrap;
     }
@@ -516,6 +521,10 @@
         grid-template-columns: 1fr;
     }
 
+    .mobile_list_wrap hr {
+        border: 1px var(--color_stroke_grey) solid;
+        opacity: 0.5;
+    }
 }
 
 @media (max-width: 680px) {
