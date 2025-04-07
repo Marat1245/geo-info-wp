@@ -23,8 +23,8 @@ button:disabled {
 }
 
 button:disabled:hover {
-    background: none;
-    opacity: 0.2;
+
+    opacity: 0.2 !important;
 }
 
 /* BUTTON */
@@ -82,18 +82,18 @@ button.small_icon img {
     background-color: var(--color_background_blue_light);
 }
 
-.primory {
+.primary {
     background: var(--color_background_orange);
     padding: var(--08) var(--20);
     color: var(--color_text_white);
 
 }
 
-.primory:hover {
+.primary:hover {
     opacity: 0.4;
 }
 
-.primory span {
+.primary span {
     color: var(--color_text_white);
 }
 
@@ -152,11 +152,20 @@ button.small_icon img {
     cursor: pointer;
 }
 
+.more_btn .comment_line {
+    width: var(--24);
+    height: 1px;
+    background-color: var(--color_stroke_grey);
+    margin: var(--04) 0;
+    margin-right: var(--08);
+}
+
 .more_btn span,
 .more_btn_profile span {
     font-family: var(--body02_font_family);
     font-size: var(--body02_font_size);
     line-height: var(--body02_line_height);
+
 }
 
 .more_btn:hover {
@@ -177,6 +186,18 @@ button.small_icon img {
 
 .expanded {
     max-height: none !important;
+}
+
+.comment_more_btn span {
+    /* background-color: var(--color_background_body);
+    width: fit-content;
+    padding: var(--12) var(--16);
+    border-radius: var(--12); */
+    font-family: var(--body03_font_family);
+    font-size: var(--body03_font_size);
+    line-height: var(--body03_line_height);
+
+
 }
 
 /* more_btn END */
@@ -200,6 +221,7 @@ button.small_icon img {
     font-size: var(--body01_font_size);
     align-items: center;
     justify-content: center;
+    width: fit-content;
 }
 
 .text_icon_btn.micro img {
@@ -212,9 +234,6 @@ button.small_icon img {
     border-radius: var(--12);
 }
 
-.hidden {
-    display: none !important;
-}
 
 .visible_flex {
     display: flex !important;

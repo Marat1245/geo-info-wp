@@ -23,7 +23,7 @@ export function checkAllertInput(element) {
 
     $formVisible.each(function () {
         let $form = $(this); // Текущая видимая форма
-        console.log($(this));
+     
         $form.find('input[required], textarea[required]').each(function () {
 
 

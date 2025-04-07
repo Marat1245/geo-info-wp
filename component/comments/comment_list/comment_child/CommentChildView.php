@@ -23,7 +23,7 @@ class CommentChildView {
                 <?php CommentSelectorView::render_comment_selector($comment_id, $comment->user_id); ?>
             </div>
             <?php CommentRestoreView::render_comment_restore(false); ?>                
-            <?php CommentResponseController::render_response_form($comment_id); ?>
+            <?php //CommentResponseController::render_response_form($comment_id); ?>
         </div>
         <?php
     }

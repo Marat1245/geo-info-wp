@@ -5,7 +5,7 @@ export function allert_messanger() {
 
 
     blockUser.click(function () {
-        console.log("dddd");
+      
         allertWrap.append(`<div class="allert allert_warning row">
                 <p>Пользователь заблокирован</p>
                 <button class="full_dark small_text"><span>Востановить</span></button>

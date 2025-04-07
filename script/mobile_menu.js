@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     if(profileButton){
         profileButton.addEventListener("click", function (event) {
-            console.log(isMobile())
+          
             if (isMobile() ){
                 show()
             }

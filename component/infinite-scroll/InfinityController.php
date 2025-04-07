@@ -1,39 +1,40 @@
 <?php
-class InfinityController {
-    public static function load_infinity() {
+class InfinityController
+{
+    public static function load_infinity()
+    {
 
         check_ajax_referer('load_infinity_nonce', 'nonce');
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'load_infinity_nonce')) {
-            wp_send_json_error('Ошибка безопасности.');
-        }
 
         $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
         $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
-        $news_query = InfinityModel::get_infinity($paged);
+        $post_type = isset($_POST['post_type']) ? $_POST["post_type"] : 'news';
+        $exclude_post_id = isset($_POST['exclude_post_id']) ? $_POST['exclude_post_id'] : [];
 
-        if ($news_query->have_posts()) {
-            ob_start();
-            while ($news_query->have_posts()) {
-                $news_query->the_post();
-                $links = get_the_permalink(); 
-             
-                InfinityView::render_infinity($news_query->post, $links); // Подключаем представление для одного поста
 
-            }
-            wp_reset_postdata();
-            $output = ob_get_clean();
-            echo $output;
+        $posts = InfinityModel::get_infinity($exclude_post_id, $paged, $post_type, 5);
 
-            // Подключаем скрипт для работы с комментариями после загрузки
-            wp_enqueue_script('comment-reply');
-        } else {
-            echo ''; // Если постов нет, ничего не выводим
+        // Проверка результата получения постов
+        if (empty($posts)) {
+            wp_send_json_error(array('message' => 'Постов не найдено для данного запроса.'));
         }
-        wp_die();
+        // Формируем результат для успешного ответа      
+        ob_start();
+        foreach ($posts as $post) {
+            InfinityView::render($post);
+        }
+        $output = ob_get_clean();
+        // Успешный ответ
+        wp_send_json_success(array(
+            'message' => 'Посты успешно загружены.',
+            'html' => $output, // Отправляем содержимое
+            'page' => $paged // Отправляем текущую страницу
+        ));
 
 
 
     }
+
 }
 
 // Регистрация AJAX-обработчиков

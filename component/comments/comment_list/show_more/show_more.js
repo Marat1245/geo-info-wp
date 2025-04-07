@@ -2,7 +2,9 @@
 document.addEventListener('click', function (event) {
     if (event.target.closest('.comment_more_btn')) {
         const moreBtn = event.target.closest('.comment_more_btn');
-        const commentsList = moreBtn.closest('.comment_block');
+        const commentsList = moreBtn.closest('.comment_block') || moreBtn.closest('.post_item');
+        const contSpan = moreBtn.querySelector('.count_comments')
+        const countComments = contSpan.textContent.trim();
         const currentCount = commentsList.querySelectorAll('.parent_comment');
         const postId = commentsList.dataset.postId;
         let parentId = [];
@@ -31,6 +33,7 @@ document.addEventListener('click', function (event) {
                 offset: currentCount,
                 parent_id: JSON.stringify(parentId),
                 nonce: show_more.nonce,
+                count_comments: countComments,
             }),
         })
             .then(response => {
@@ -44,21 +47,38 @@ document.addEventListener('click', function (event) {
 
                     // Добавляем новые комментарии
                     moreBtn.insertAdjacentHTML('beforebegin', response.data.html);
-                    console.log(response.data.show_more);
-                    // Если больше нет комментариев для загрузки, скрываем кнопку
                     if (!response.data.show_more) {
                         moreBtn.remove();
                     } else {
-                        // Обновляем текст кнопки
-                        const btnText = moreBtn.querySelector('span');
-                        if (btnText) {
-                            if (response.data.next_load_count === response.data.remaining_total) {
-                                btnText.textContent = `Ещё ${response.data.next_load_count} комментариев`;
-                            } else {
-                                btnText.textContent = `${response.data.next_load_count} из ${response.data.remaining_total} комментариев`;
+                        function getCommentWord(count) {
+                            count = Math.abs(count) % 100;
+                            let num = count % 10;
+
+                            if (count > 10 && count < 20) {
+                                return "комментариев";
                             }
+                            if (num > 1 && num < 5) {
+                                return "комментария";
+                            }
+                            if (num === 1) {
+                                return "комментарий";
+                            }
+                            return "комментариев";
+                        }
+
+                        const remainingTotal = response.data.remaining_total;
+                        const commentText = getCommentWord(remainingTotal);
+
+                        contSpan.textContent = "\u00A0" + remainingTotal + "\u00A0";
+                        moreBtn.querySelector(".count_comments_text").textContent = commentText;
+
+                        if (remainingTotal <= 50) {
+                            const uploadSpan = moreBtn.querySelector('.count_comments_upload');
+                            if (uploadSpan) uploadSpan.remove();
                         }
                     }
+
+
                 } else {
                     console.error('Ошибка загрузки комментариев:', response.data);
                     alert('Произошла ошибка при загрузке комментариев. Пожалуйста, попробуйте позже.');

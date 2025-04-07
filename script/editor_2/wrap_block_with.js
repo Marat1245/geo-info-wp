@@ -35,7 +35,7 @@ export const wrapBlockWith = (block, tagName, className = "", editor) => {
 
     } else {
         // Просто копируем содержимое
-        console.log(block)
+       
         newEl.innerHTML = block.innerHTML;
         newEl.appendChild(document.createElement("br"));
 

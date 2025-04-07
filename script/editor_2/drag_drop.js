@@ -43,7 +43,7 @@ function handleDrop(event) {
     }
 
     const afterElement = getDragAfterElement(editor, event.clientY);
-    console.log(afterElement)
+   
     if (afterElement) {
 
         editor.insertBefore(draggedElement, afterElement.closest(".tag_editor_wrap"));

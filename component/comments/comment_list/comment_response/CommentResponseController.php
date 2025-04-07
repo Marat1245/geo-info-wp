@@ -1,14 +1,10 @@
 <?php
-require_once __DIR__ . '/CommentResponseView.php';
-require_once __DIR__ . '/../comment_controller/CommentControllerView.php';
-require_once __DIR__ . '/../comment_selector/CommentSelectorView.php';
-require_once __DIR__ . '/../comment_restore/CommentRestoreView.php';
+// require_once __DIR__ . '/CommentResponseView.php';
+// require_once __DIR__ . '/../comment_controller/CommentControllerView.php';
+// require_once __DIR__ . '/../comment_selector/CommentSelectorView.php';
+// require_once __DIR__ . '/../comment_restore/CommentRestoreView.php';
 
-class CommentResponseController {
-    public static function init() {
-        add_action('wp_ajax_comment_response', array(__CLASS__, 'handle_comment_response'));
-        add_action('wp_ajax_nopriv_comment_response', array(__CLASS__, 'handle_unauthorized'));
-    }
+class CommentResponseController {  
 
     public static function handle_unauthorized() {
         wp_send_json_error(array(
@@ -19,7 +15,7 @@ class CommentResponseController {
     public static function handle_comment_response() {
         try {
             // Проверяем nonce
-            if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'comment_ajax_nonce')) {
+            if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'comment_response_nonce')) {
                 throw new Exception('Ошибка безопасности');
             }
 
@@ -103,7 +99,7 @@ class CommentResponseController {
                     <?php CommentSelectorView::render_comment_selector($comment_id, $user->ID); ?>
                 </div>
                 <?php CommentRestoreView::render_comment_restore(false); ?>                
-                <?php CommentResponseController::render_response_form($comment_id); ?>
+                <?php //CommentResponseController::render_response_form($comment_id); ?>
             </div>
             <?php
             $html = ob_get_clean();
@@ -127,4 +123,5 @@ class CommentResponseController {
 }
 
 // Инициализируем контроллер
-CommentResponseController::init();
+add_action('wp_ajax_comment_response', array('CommentResponseController', 'handle_comment_response'));
+add_action('wp_ajax_nopriv_comment_response', array('CommentResponseController', 'handle_unauthorized'));

@@ -24,17 +24,15 @@ document.addEventListener("DOMContentLoaded", function () {
         e.stopPropagation();
 
         // Проверка авторизации пользователя
-        // Если пользователь не авторизован, перенаправляем на страницу входа
         if (!geoInfoLike.isLoggedIn) {
             window.location.href = geoInfoLike.loginUrl;
             return;
         }
 
         // Находим родительский элемент поста
-        // Это нужно для обновления всех связанных элементов именно этого поста
-        const postItem = button.closest(".post-item");
+        const postItem = button.closest(".post_item");
         if (!postItem) {
-            console.error("Ошибка: элемент .post-item не найден");
+            console.error("Ошибка: элемент .post_item не найден");
             return;
         }
 
@@ -46,18 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Находим все элементы, связанные с лайками в текущем посте:
-        // - кнопки лайков (может быть несколько копий одной кнопки)
-        // - иконки внутри кнопок
-        // - счетчики количества лайков
+
         const buttonAll = postItem.querySelectorAll(".like-button");
 
-        // Логируем количество найденных элементов для отладки
-        // console.group('Обработка лайка');
-        // console.log('Найдено элементов:', {
-        //     buttons: buttonAll.length,
-        //     icons: likeIcons.length,
-        //     counts: likeCounts.length
-        // });
+
 
         // Подготавливаем данные для отправки на сервер
         const formData = new FormData();
@@ -75,12 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
-                // Логируем ответ сервера
-                // console.group('Ответ сервера');
-                // console.log('Данные:', data);
-                // console.log('Количество лайков:', data.data.likes);
-                // console.log('Статус лайка:', data.data.liked);
-                // console.groupEnd();
+                // Логируем ответ сервера            
 
                 // Процесс обновления разделен на три этапа:
 
@@ -88,10 +73,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Меняем изображение и alt-текст в зависимости от состояния лайка
                 if (buttonAll.length > 0) {
                     // console.group('Обновление иконок');
-                    buttonAll.forEach((item, index) => {
+                    buttonAll.forEach((item) => {
                         const icon = item.querySelector(".like-icon");
                         const count = item.querySelector(".like-count");
-                        // const oldSrc = icon.src;
+
+                        if (!icon || !count) {
+                            return; // Пропускаем этот элемент, если он невалидный
+                        }
+                        // const oldSrc = icon.src;                       
                         if (data.data.liked) {
                             // Если пост лайкнут - показываем активную иконку
                             icon.src = icon.dataset.activeIcon;
@@ -109,13 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             // Показываем счетчик только если есть хотя бы один лайк
                             count.style.display = data.data.likes > 0 ? 'flex' : 'none';
                         }
-                        // console.log(`Иконка ${index + 1}:`, {
-                        //     было: oldSrc.split('/').pop(),
-                        //     стало: icon.src.split('/').pop(),
-                        //     alt: icon.alt
-                        // });
+
                     });
-                    // console.groupEnd();
+
                 }
 
 
@@ -135,11 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             btn.classList.remove("liked");
                         }
 
-                        // console.log(`Кнопка ${index + 1}:`, {
-                        //     'классы было': oldClasses,
-                        //     'классы стало': btn.className,
-                        //     'статус лайка': data.data.liked
-                        // });
+
                     });
                     // console.groupEnd();
                 }, 300); // Задержка для плавности анимации
@@ -148,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => {
                 // Если произошла ошибка, показываем сообщение
                 console.error("Ошибка запроса:", error);
-                alert(geoInfoLike.messages.error);
+                //alert(geoInfoLike.messages.error);
                 // Убираем индикатор загрузки со всех кнопок
                 buttonAll.forEach(btn => btn.classList.remove("loading"));
             })

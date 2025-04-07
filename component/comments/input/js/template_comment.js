@@ -3,7 +3,7 @@ export const comment_template = (comment) => {
     const formattedContent = comment.content.replace(/\n/g, '<br>');
 
     return `
-        <div class="user_comment" data-comment-id="${comment.id}">
+        <div class="user_comment parent_comment" data-comment-id="${comment.id}">
             <div class="user_comment_info">
                 <img class="comment_avatar" src="${input_comment.templateUrl}/img/icons/user_24.svg" alt="Аватар пользователя">
                 <span class="comment_name">${comment.author}</span>
@@ -15,10 +15,10 @@ export const comment_template = (comment) => {
             </div>
             <div class="comment_control">
                 
-                    <button class="small_text flat text_icon_btn answer_comment">
+                    <button class="micro flat text_icon_btn answer_comment">
                         <span class="card_caption_text">Ответить</span>
                     </button>
-                    <button class="small_text flat text_icon_btn like-comment-button ${comment.my_likes}" data-comment-id="${comment.id}">
+                    <button class="micro flat text_icon_btn like-comment-button ${comment.my_likes}" data-comment-id="${comment.id}">
                         <img class="like-icon" 
                             src="${input_comment.templateUrl}/img/icons/${comment.my_likes === 'liked' ? 'button_heart_act_20.svg' : 'button_heart_20.svg'}" 
                             alt="${comment.my_likes === 'liked' ? 'Пользователь поставил лайк' : 'Лайк'}" 
@@ -61,6 +61,9 @@ export const comment_template = (comment) => {
                 <button class="small_text flat text_icon_btn restore_comment"><span class="card_caption_text">Восстановить</span>
 
             </div>
+        </div>
+        <div class="comment_responses">
+
         </div>
     `;
 };

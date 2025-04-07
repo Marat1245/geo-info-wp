@@ -1,5 +1,6 @@
 <?php
-function renderSelector($isMyPost) {
+function renderSelector($isMyPost)
+{
     $template_uri = get_template_directory_uri(); // Получаем путь к шаблону
 
     $liList = '
@@ -22,11 +23,14 @@ function renderSelector($isMyPost) {
             <div class="selector_first">
                 <ul>
                     <li data-li="share">
-                        <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/dark_share_20.svg" alt="">Поделиться</div>
-                        <img src="<?php echo get_template_directory_uri(); ?>/img/icons/Arrow_right_20.svg" alt="">
+                        <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/dark_share_20.svg"
+                                alt="">Поделиться</div>
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/icons/arrow_right_20.svg" alt="">
                     </li>
-                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/icons/user-plus_20.svg" alt="">Подписаться</li>
-                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/icons/Warning_outline_20.svg" alt="">Пожаловаться</li>
+                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/icons/user-plus_20.svg" alt="">Подписаться
+                    </li>
+                    <li><img src="<?php echo get_template_directory_uri(); ?>/img/icons/Warning_outline_20.svg"
+                            alt="">Пожаловаться</li>
                 </ul>
             </div>
             <div class="selector_second">

@@ -3,6 +3,9 @@ class CommentSelectorView
 {
     public static function render_comment_selector($post_id, $comment_author_id)
     {
+        if(!is_user_logged_in()){
+            return;
+        }
         $current_user_id = get_current_user_id();
         ?>
           <div class="selector_wrap">

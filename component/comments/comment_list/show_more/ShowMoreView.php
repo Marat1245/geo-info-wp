@@ -1,5 +1,5 @@
-<?php 
-require_once get_template_directory() . '/component/format_time.php';
+<?php
+
 
 class ShowMoreView
 {
@@ -7,15 +7,15 @@ class ShowMoreView
     {
         // Проходим по всем комментариям и рендерим их
         foreach ($comments as $comment) {
-          
+
             // Отображаем только комментарии с parent_id = 0 для начальной рендеринга
             if ($comment['parent'] == 0) {
                 $is_deleted = get_comment($comment['id'])->comment_approved === 'trash';
                 $comment_class = $is_deleted ? 'comment-deleted' : '';
-                
+
                 // Считаем количество подкомментариев для текущего родительского комментария
                 $under_comments = CommentListModel::get_parrent_comments($post_id);
-                $filtered_comments = array_filter($under_comments, function($under_comment) use ($comment) {
+                $filtered_comments = array_filter($under_comments, function ($under_comment) use ($comment) {
                     return $under_comment['parent'] == $comment['id'];
                 });
 
@@ -27,9 +27,8 @@ class ShowMoreView
 
                 ?>
                 <!-- Родительский комментарий -->
-                <div class="user_comment parent_comment" 
-                    data-comment-id="<?php echo esc_attr($comment['id']); ?>">
-                    
+                <div class="user_comment parent_comment" data-comment-id="<?php echo esc_attr($comment['id']); ?>">
+
                     <div class="user_comment_info">
                         <img class="comment_avatar"
                             src="<?php echo esc_url(get_template_directory_uri() . '/img/icons/user_24.svg'); ?>" alt="">
@@ -38,7 +37,14 @@ class ShowMoreView
                     </div>
 
                     <div class="comment_text" data-collapsed="false">
-                        <span><?php echo nl2br(esc_html($comment['content'])); ?></span>
+                        <?php
+                        // Преобразуем строку классов в массив
+                        $comment_classes = explode(' ', $comment['comment_class']);
+                        if (in_array('comment-deleted', $comment_classes)) { ?>
+                            <span class="comment_deleted">Комментарий удален</span>
+                        <?php } else { ?>
+                            <span><?php echo nl2br(esc_html($comment['content'])); ?></span>
+                        <?php } ?>
                         <span class="link_tag card_caption_text toggle_text" style="display: none;">...еще</span>
                     </div>
 
@@ -47,18 +53,23 @@ class ShowMoreView
                         <?php CommentSelectorView::render_comment_selector($comment['id'], $comment['user_id']); ?>
                     </div>
 
-                    <?php CommentRestoreView::render_comment_restore($is_deleted); ?>                
-                    <?php CommentResponseController::render_response_form($comment['id']); ?>
+                    <?php
+
+                    if (!in_array('comment-deleted', $comment_classes)) {
+                        CommentRestoreView::render_comment_restore($is_deleted);
+                    } ?>
+                    <?php //CommentResponseController::render_response_form($comment['id']); ?>
 
                 </div>
-               
-                <?php 
+
+                <?php
                 // Если есть подкомментарии, выводим их
                 if ($total_comments_count > 0) {
                     ?>
                     <div class="comment_responses">
                         <div class="more_btn under_comment_more_btn">
-                            <span>Показать <?php        
+                            <div class="comment_line"></div>
+                            <span>Показать <?php
                             $word = 'ответ';
 
                             if ($total_comments_count % 10 == 1 && $total_comments_count % 100 != 11) {
@@ -68,10 +79,10 @@ class ShowMoreView
                             } else {
                                 $word = 'ответов';
                             }
-                            
-                            echo $total_comments_count . ' ' . $word; ?> 
+
+                            echo $total_comments_count . ' ' . $word; ?>
                             </span>
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/icons/arrow_down_20.svg" alt="">
+                           
                         </div>
                     </div>
                     <?php
@@ -89,7 +100,7 @@ class ShowMoreView
 
         foreach ($comments as $comment) {
             // Фильтруем все подкомментарии для текущего комментария
-            $filtered_comments = array_filter($all_comments, function($under_comment) use ($comment) {
+            $filtered_comments = array_filter($all_comments, function ($under_comment) use ($comment) {
                 return $under_comment['parent'] == $comment['id'];
             });
 
@@ -103,6 +114,52 @@ class ShowMoreView
 
         return $count;
     }
- 
+
+    public static function render_show_more_btn($last_comments_count)
+    {
+        if ($last_comments_count <= 0) {
+            return;
+        }
+
+
+
+        $commentText = self::getCommentWord($last_comments_count);
+
+        ob_start(); // Включаем буферизацию вывода
+        ?>
+        <div class="more_btn comment_more_btn">
+            <span>Еще&nbsp;</span>
+            <?php if ($last_comments_count < 50): ?>
+                <span class="count_comments"><?php echo $last_comments_count . '&nbsp;'; ?></span>
+                <span class="count_comments_text"><?php echo $commentText; ?></span>
+            <?php else: ?>
+                <span class="count_comments_upload">50 из</span>
+                <span class="count_comments"><?php echo '&nbsp;' . $last_comments_count . '&nbsp;'; ?></span>
+                <span class="count_comments_text"><?php echo $commentText; ?></span>
+            <?php endif; ?>
+            
+        </div>
+        <?php
+        return ob_get_clean(); // Возвращаем буферизированный HTML-код как строку
+    }
+
+    // Функция для определения правильного склонения
+    public static function getCommentWord($count)
+    {
+        $count = abs($count) % 100;
+        $num = $count % 10;
+
+        if ($count > 10 && $count < 20) {
+            return "комментариев";
+        }
+        if ($num > 1 && $num < 5) {
+            return "комментария";
+        }
+        if ($num == 1) {
+            return "комментарий";
+        }
+
+        return "комментариев";
+    }
 }
 

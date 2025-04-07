@@ -14,90 +14,152 @@
 
 get_header();
 ?>
-
-<!-- Линия текста, анимация -->
-<section class="anima_line">
-    <div class="track">
-        <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/circle.svg" alt=""></div>
-        <div>Перевод • События отрасли • Геориск • Инженерная геология </div>
-        <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/3_line.svg" alt=""></div>
-        <div>Инженерные изыскания • Экология • Инженерная геология</div>
-        <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/circle.svg" alt=""></div>
-        <div>Геофизика • Инженерные изыскания • Экология Инженерная геология • Геофизика</div>
-    </div>
-</section>
-
 <!-- Большой логотип -->
 <section class="header_logo_big container">
     <img src="<?php echo get_template_directory_uri(); ?>/img/logo_big.svg" alt="ГеоИнфо">
 </section>
 
-<!-- News and menu -->
-<section class="container main_block">
-    <?php get_template_part('component/menu/menu'); ?>
-
-    <div class="content_block">
-        <div class="title_for_section__wrap title_news">
-            <div class="title_for_section">
-                <a href="">
-                    <h2>Новости</h2>
-                </a>
-            </div>
+<div class="seamless_bg">
+    <div class="seamless_bg_grad"></div>
+    <!-- Линия текста, анимация -->
+    <section class="anima_line">
+        <div class="track">
+            <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/circle.svg" alt=""></div>
+            <div class="track_text">Перевод • События отрасли • Геориск • Инженерная геология </div>
+            <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/3_line.svg" alt=""></div>
+            <div class="track_text">Инженерные изыскания • Экология • Инженерная геология</div>
+            <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/circle.svg" alt=""></div>
+            <div class="track_text">Геофизика • Инженерные изыскания • Экология Инженерная геология • Геофизика</div>
         </div>
+        <div class="track">
+            <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/circle.svg" alt=""></div>
+            <div class="track_text">Перевод • События отрасли • Геориск • Инженерная геология </div>
+            <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/3_line.svg" alt=""></div>
+            <div class="track_text">Инженерные изыскания • Экология • Инженерная геология</div>
+            <div><img src="<?php echo get_template_directory_uri(); ?>/img/icons/circle.svg" alt=""></div>
+            <div class="track_text">Геофизика • Инженерные изыскания • Экология Инженерная геология • Геофизика</div>
+        </div>
+    </section>
+
+    <!-- News and menu -->
+    <section class="container three_block_grid">
+        <?php get_template_part('component/menu/menu'); ?>
+
         <div class="news__section">
+            <div class="title_for_section__wrap title_news">
+                <div class="title_for_section">
+                    <a href="">
+                        <h2>Новости</h2>
+                    </a>
+                </div>
+            </div>
             <div class="news paper">
 
                 <div class="new_list" id="news-container">
 
                     <?php
-                        // Настроим параметры запроса
-                        $args = array(
-                            'post_type'      => 'news', // Тип постов 'news'
-                            'posts_per_page' => 5,      // Ограничиваем вывод 5 постами
-                            'orderby'        => 'date', // Сортировка по дате
-                            'order'          => 'DESC', // В порядке убывания (от самых новых)
-                            'paged'          =>  1, // Для пагинации
-                        );
-
-                        // Инициализируем WP_Query с нашими параметрами
-                        $news_query = new WP_Query($args);
-
-                        // Проверяем, есть ли посты
-                        if ($news_query->have_posts()) {
-
-                            // Перебираем посты
-                            while ($news_query->have_posts()) {
-                                $news_query->the_post(); // Подготавливаем текущий пост
-
-                              NewsView::render_news($news_query);
-                            }
-
-                            wp_reset_postdata(); // Сбрасываем данные после цикла
-                        } else {
-                            echo '<p>Новостей не найдено.</p>';
-                        }
-                        ?>
+                    PostController::show_post(1, 'news');
+                    ?>
 
                 </div>
 
-                <div class="more_btn" id="load-more-news">
-                    <span>Ещё 5 новостей</span>
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/icons/arrow_down_20.svg" alt="">
+
+                <?php MoreBtnView::render('load-more-news', 'news'); ?>
+
+            </div>
+
+        </div>
+        <div class="news_banner_wrap paper">
+            <div class="news_banner">
+                <a href=""><img src="<?php echo get_template_directory_uri(); ?>/img/banner_ver.png" alt=""
+                        class="banner_top link_company"></a>
+            </div>
+        </div>
+
+    </section>
+    <!-- Banner -->
+    <section class="banner container">
+        <img src="<?php echo get_template_directory_uri(); ?>/img/banner_hor_01.png"
+            class="banner_main_horizont_01 link_company "></img>
+    </section>
+    <!-- Banner END-->
+
+    <!-- Sponsor and preprint  -->
+    <section class="container two_block_grid">
+        <?php
+        // БЛОК СО СПНСОРАМИ
+        get_template_part('template-parts/sponsors');
+        ?>
+        <div>
+            <div class="content_block preprints_wraps">
+                <div class="title_for_section__wrap">
+                    <div class="title_for_section">
+                        <a href="">
+                            <h2>Препринты</h2>
+                        </a>
+                    </div>
+
+                </div>
+                <div id="post-container">
+                    <?php
+                    // ВСТАВЛЯЕМ ПОСТЫ
+                    PostController::show_post(1, 'post');
+                    ?>
+                </div>
+                <div class="preprints_more_btn paper">
+
+                    <?php MoreBtnView::render('load-more-preprint', 'post'); ?>
+                </div>
+                <!-- Banner -->
+                <div class="banner">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/banner_hor_01.png"
+                        class="banner_main_horizont_01 link_company "></img>
+                </div>
+                <!-- Banner END-->
+
+                <div class="post_users_wraps">
+
+                    <div class="posts upload_list" data-post-type="post_users">
+                        <div class="title_for_section__wrap">
+                            <div class="title_for_section">
+                                <a href="">
+                                    <h2>Стена</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <?php
+                        // ВСТАВЛЯЕМ ПОСТЫ                        
+                        PostController::show_post(1, 'post_users');
+                        ?>
+
+                    </div>
+                    <!-- <div class="rek_left">
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/banner_ver.png" alt=""
+                            class="link_company ">
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/banner_ver.png" alt=""
+                            class="link_company ">
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/banner_ver.png" alt=""
+                            class="link_company ">
+                    </div> -->
                 </div>
 
             </div>
 
-            <div class="news_banner_wrap paper">
-                <div class="news_banner">
-                    <a href=""><img src="<?php echo get_template_directory_uri(); ?>/img/banner_ver.png" alt=""
-                            class="banner_top link_company"></a>
+            <div class="container main_block main_block_posts">
+
+                <div class="content_block">
+
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
+    </section>
+    <!-- Sponsor and preprint  END -->
 
-<?php
+    <!-- POST -->
 
-get_footer();
+    <!-- POST END -->
+    <?php
+
+    get_footer();

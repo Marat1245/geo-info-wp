@@ -10,7 +10,7 @@ export const addNewInputs = function () {
         var $formOne = $form.find(".form_one:first"); // Первый .form_one
         var $formLast = $form.find(".form_one:last"); // Последний .form_one
 
-        console.log($(this))
+      
         // Клонируем этот первый блок
         var $newFormOne = $formOne.clone();
 

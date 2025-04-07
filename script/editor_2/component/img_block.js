@@ -11,7 +11,7 @@ export function imgBlock(croppedImageDataURL) {
 
     const closeButton = document.createElement('div');
     closeButton.classList.add('close', 'delete_img');
-    closeButton.innerHTML = '<img src="./img/icons/Close_popup.svg" alt="Закрыть">';
+    closeButton.innerHTML = '<img src="./img/icons/close_popup.svg" alt="Закрыть">';
 
     const cropImg = document.createElement('div');
     cropImg.classList.add('crop_img');

@@ -12,7 +12,7 @@ export const highlight = (editor) =>{
         if (!lastChild || lastChild.tagName !== "BR") {
             const br = document.createElement("br");
             highlight.appendChild(br);
-            console.log("Добавлен <br> в конец");
+          
         }
     })
     editor.addEventListener("keydown", (event) => {

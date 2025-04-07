@@ -17,7 +17,7 @@ export function messagesTextarea() {
             const newHeight = Math.min(textarea.scrollHeight - 21, 200); // Ограничиваем максимум 200px
             // textarea.style.height = `${count * newHeight}px`;
             textarea.style.height = `${newHeight}px`;
-            // console.log(textarea.scrollHeight, textarea.scrollHeight - 24);
+      
         }
 
         // Слушатель изменения текста

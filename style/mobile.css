@@ -12,6 +12,14 @@
 
     }
 
+    .three_block_grid {
+        grid-template-columns: 22rem 1fr 20rem;
+    }
+
+    .two_block_grid_rev {
+        grid-template-columns: 1fr 20rem;
+    }
+
     .devide_48 {
         padding-left: var(--32);
     }
@@ -34,14 +42,14 @@
         width: 20rem;
     }
 
-    .artical-page_content {
+    .article_page_content {
         display: flex;
         flex-direction: column-reverse;
         align-items: flex-start;
         gap: var(--12);
     }
 
-    .artical-page_data {
+    .article_page_data {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -170,11 +178,43 @@
         --title_for_section: 3.2rem 3.2rem;
         --menu: 3.2rem 1.2rem 4.8rem 2.4rem;
         --news: 3.2rem 3.2rem 6rem 3.2rem;
-        --sponsor: 4rem 1.2rem 4rem 4rem;
-        --preprints: 3.2rem 3.2rem 6rem 3.2rem;
+        --sponsor: 4rem;
         --ads: 1.2rem;
         --artical: 3.2rem 3.2rem 6rem 3.2rem;
 
+    }
+
+    .three_block_grid {
+        grid-template-columns: 1fr 20rem;
+    }
+
+    .two_block_grid {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .two_block_grid .sponsor {
+        min-width: 20rem;
+    }
+
+    .two_block_grid_rev {
+        grid-template-columns: 1fr;
+    }
+
+    .second_sponsor {
+        padding: 2.8rem 2rem;
+    }
+
+    .main_sponsor {
+        padding: 2rem;
+    }
+
+    .main_sponsor {
+        min-height: 10rem;
+    }
+
+    .header_logo_big img {
+        margin-bottom: -4.2%;
     }
 
     .seamless_bg_grad {
@@ -241,9 +281,7 @@
         border-radius: var(--06) var(--06) 0 0;
     }
 
-    .preprints_wraps .more_btn {
-        padding-bottom: 32px;
-    }
+
 
     .tags_page .preprints_title {
         font-family: var(--display04_font_family);
@@ -251,7 +289,7 @@
         line-height: var(--display04_line_height);
     }
 
-    .inner_menu{
+    .inner_menu {
         display: none;
     }
 
@@ -271,8 +309,14 @@
         grid-template-columns: 1fr;
     }
 
+
     .more_btn {
         justify-content: center;
+    }
+
+    .under_comment_more_btn,
+    .comment_more_btn {
+        justify-content: flex-start;
     }
 
     .preprints_wraps .more_btn {
@@ -284,11 +328,8 @@
         object-fit: contain;
     }
 
-    .menu,
-    .sponsor,
-    .rek_left {
-        display: none;
-    }
+
+
 
     .mobile_menu {
         display: flex;
@@ -338,9 +379,7 @@
         width: 100%;
     }
 
-    .anima_line {
-        padding: var(--08) 0;
-    }
+
 
     .container {
         padding: 0;
@@ -350,7 +389,7 @@
         display: flex;
     }
 
-    .artical-page_img {
+    .article_page_img {
         border-radius: var(--04);
     }
 
@@ -368,11 +407,9 @@
         flex-direction: column-reverse;
     }
 
-    .add_articals_content {
-        width: 28rem;
-    }
 
-    .artical-page_text {
+
+    .article_page_text {
         width: 100%;
     }
 
@@ -463,13 +500,36 @@
         padding-right: var(--40);
     }
 
+    .notification.active {
+        transform: translateY(-60px);
+    }
 
+    .main-navigation {
+        display: none;
+    }
+
+    .news_second {
+        flex-wrap: wrap;
+    }
+
+    .inner_page_articals {
+        grid-template-columns: 1fr;
+    }
 
 }
 
 @media (max-width: 680px) {
     .user_messages_top .row button {
         display: block;
+    }
+
+    .three_block_grid,
+    .two_block_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sponsor {
+        display: none;
     }
 
     .user_messages {
@@ -491,6 +551,36 @@
 
     .pre_post_setting {
         width: 100%;
+    }
+
+    .registration-form {
+        width: 100%;
+        padding: 28px 28px 30px;
+    }
+
+    .pop_up_close,
+    .close {
+        right: var(--24);
+        top: var(--24);
+        z-index: 27;
+    }
+
+    .add_article_content {
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .add_article_img {
+        height: 100%;
+    }
+
+    .add_article_title {
+        max-height: 72px;
+        -webkit-line-clamp: 4;
+        height: 72px;
+    }
+
+    .add_article_content a {
+        padding: 24px 0;
     }
 }
 
@@ -568,6 +658,27 @@
     #create_post_title {
         width: 100%;
     }
+
+    .add_article_content {
+        grid-template-columns: 1fr;
+    }
+
+    .add_article_title {
+        padding: var(--12) var(--24) var(--48);
+    }
+
+    .user_comment_info {
+        flex-wrap: wrap;
+    }
+
+    .article_page_tag {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .add_article_content a {
+        padding: 0;
+    }
 }
 
 @media (max-width: 380px) {
@@ -602,9 +713,7 @@
         border-radius: var(--04);
     }
 
-    .add_articals_content {
-        width: 26rem;
-    }
+
 
     .profile_header,
     .profile_right_block {

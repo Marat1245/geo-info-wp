@@ -23,7 +23,7 @@ export function mobileManageMes() {
             let chatListItem = $(".chat_list_wrap .chat_item");
 
             chatListItem.click(function () {
-                console.log("das")
+                
                 $(".user_messages").css({ display: "block" });
                 $(".have_messeges_wrap").css({ display: "none" });
             });

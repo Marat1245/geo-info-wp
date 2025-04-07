@@ -3,7 +3,7 @@ html {
     scroll-behavior: smooth;
 }
 
-@font-face {
+/* @font-face {
     font-family: 'Futura PT';
     src: url('../fonts/FuturaPT-Book.eot');
     src: url('../fonts/FuturaPT-Book.woff') format('woff'),
@@ -19,11 +19,33 @@ html {
         url('../fonts/latoregular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+} */
+
+/* Код для подключения шрифта в /css/stylename.css */
+@font-face {
+    font-family: "SegoeUIRegular";
+    src: url("../fonts/SegoeUIRegular/SegoeUIRegular.eot");
+    src: url("../fonts/SegoeUIRegular/SegoeUIRegular.eot?#iefix")format("embedded-opentype"),
+        url("../fonts/SegoeUIRegular/SegoeUIRegular.woff") format("woff"),
+        url("../fonts/SegoeUIRegular/SegoeUIRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+}
+
+/* Код для подключения шрифта в /css/stylename.css */
+@font-face {
+    font-family: "SegoeUISemiBold";
+    src: url("../fonts/SegoeUISemiBold/SegoeUISemiBold.eot");
+    src: url("../fonts/SegoeUISemiBold/SegoeUISemiBold.eot?#iefix")format("embedded-opentype"),
+        url("../fonts/SegoeUISemiBold/SegoeUISemiBold.woff") format("woff"),
+        url("../fonts/SegoeUISemiBold/SegoeUISemiBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 600;
 }
 
 :root {
     /* Background */
-    --color_background_blue: linear-gradient(180.05deg, #D8DFE6 -2.17%, #F3F5F7 99.96%);
+    --color_background_blue: linear-gradient(180.05deg, #6B8094 -2.17%, #F4F6F6 99.96%);
     --color_background_blue_light: #ECEEF1;
     --color_background_white_50: rgba(255, 255, 255, 0.5);
     --color_background_white: #FFFFFF;
@@ -43,11 +65,12 @@ html {
     /* Text  */
     --color_text_grey_light: #BFCADA;
     --color_text_dark: #2C2C2C;
-    --color_text_grey: #929292;
+    --color_text_grey: #bbb;
     --color_text_orange: #FF6600;
     --color_text_white: #FFFFFF;
     --color_text_blue: #0E58C6;
     --color_text_red: #E34648;
+    --color_text_green: #378D37;
 
     /* Stroke*/
     --color_stroke_grey: #E2E5EA;
@@ -80,12 +103,12 @@ html {
 
 
     /* padding */
-    --title_for_section: 3.2rem 4.8rem;
-    --menu: 3.2rem 1.2rem 4.8rem 2.4rem;
-    --news: 3.2rem 4.8rem 10rem 4.8rem;
+    --title_for_section: 3.2rem 3.6rem;
+    --menu: 2.4rem 1.2rem 4.8rem 2.4rem;
+    --news: 3.6rem 3.6rem 4.8rem;
     --post: 3.2rem;
-    --sponsor: 4rem 1.2rem 4rem 2.8rem;
-    --preprints: 4rem 4rem 4rem 4.8rem;
+    --sponsor: 4rem;
+    --preprints: 3.6rem;
     --ads: 1.2rem;
     --mobile_menu: 1.2rem 0.8rem 10rem 0.8rem;
     --profile_block: 3.2rem;
@@ -99,76 +122,76 @@ html {
 
     /* Шрифт */
     /* Display 7 */
-    --display07_font_family: 'Futura PT';
+    --display07_font_family: 'SegoeUIRegular';
     --display07_font_style: normal;
     --display07_font_weight: 400;
     --display07_font_size: 2.8rem;
     --display07_line_height: 3.2rem;
 
     /* Display 6 */
-    --display06_font_family: 'Futura PT';
+    --display06_font_family: 'SegoeUISemiBold';
     --display06_font_style: normal;
     --display06_font_weight: 600;
     --display06_font_size: 3.6rem;
     --display06_line_height: 4.2rem;
 
     /* Display 5 */
-    --display05_font_family: 'Futura PT';
+    --display05_font_family: 'SegoeUIRegular';
     --display05_font_style: normal;
     --display05_font_weight: 400;
-    --display05_font_size: 3.2rem;
+    --display05_font_size: 2.4rem;
     --display05_line_height: 4.1rem;
 
     /* Display 4 */
-    --display04_font_family: 'Futura PT';
+    --display04_font_family: 'SegoeUIRegular';
     --display04_font_style: normal;
     --display04_font_weight: 400;
-    --display04_font_size: 2.8rem;
-    --display04_line_height: 3.2rem;
+    --display04_font_size: 2rem;
+    --display04_line_height: 2.8rem;
 
 
     /* Display 3 */
-    --display03_font_family: 'Futura PT';
+    --display03_font_family: 'SegoeUIRegular';
     --display03_font_style: normal;
     --display03_font_weight: 400;
     --display03_font_size: 2.4rem;
     --display03_line_height: 2.8rem;
 
     /* Display 2 */
-    --display02_font_family: 'Futura PT';
+    --display02_font_family: 'SegoeUIRegular';
     --display02_font_weight: 400;
     --display02_font_size: 2rem;
     --display02_line_height: 2.4rem;
 
     /* Display 1 */
-    --display01_font_family: 'Futura PT';
+    --display01_font_family: 'SegoeUIRegular';
     --display01_font_style: normal;
     --display01_font_weight: 400;
     --display01_font_size: 1.6rem;
     --display01_line_height: 2.1rem;
 
     /* Body 4 */
-    --body04_font_family: 'Lato';
+    --body04_font_family: 'SegoeUIRegular';
     --body04_font_style: normal;
     --body04_font_weight: 400;
     --body04_font_size: 1rem;
 
     /* Body 3 */
-    --body03_font_family: 'Lato';
+    --body03_font_family: 'SegoeUIRegular';
     --body03_font_style: normal;
     --body03_font_weight: 400;
     --body03_font_size: 1.8rem;
     --body03_line_height: 2.2rem;
 
     /* Body 2 */
-    --body02_font_family: 'Lato';
+    --body02_font_family: 'SegoeUIRegular';
     --body02_font_style: normal;
     --body02_font_weight: 400;
     --body02_font_size: 1.6rem;
     --body02_line_height: 2.4rem;
 
     /* Body 1 */
-    --body01_font_family: 'Lato';
+    --body01_font_family: 'SegoeUIRegular';
     --body01_font_size: 1.4rem;
 }
 
@@ -239,25 +262,22 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 20px;
-    border-radius: 20px;
+    padding: 0 var(--20);
+    border-radius: var(--20);
+    position: relative;
 }
 
 .seamless_bg_grad {
     background: var(--color_background_blue);
-    padding-top: 100%;
-
+    height: 100vh;
     width: 100%;
     position: absolute;
     z-index: -12;
-    top: 7.4rem;
     border-radius: var(--20);
     transition: none;
 }
 
-.wp_admin_active {
-    top: 10.6rem;
-}
+
 
 .seamless_bg_grad_inner {
     padding-top: 100vh;
@@ -284,17 +304,13 @@ section {
     margin-top: var(--20);
 }
 
-.inner_menu .menu,
-.inner_menu .sponsor,
-.inner_menu nav {
-    background: none;
-    height: fit-content;
-}
 
 .inner_menu {
-    background-color: var(--color_background_white_50);
-    border-radius: var(--06);
+    display: flex;
+    flex-direction: column;
+    gap: var(--12);
 }
+
 
 .scrollbar_none {
     scrollbar-width: none;
@@ -324,9 +340,7 @@ section {
     cursor: pointer;
 }
 
-.header_log [data-log='off'] {
-    display: none;
-}
+
 
 .header_log [data-log='on']:hover {
     opacity: 0.5;
@@ -392,6 +406,7 @@ section {
 .title_for_section__wrap {
     background-color: var(--color_background_white);
     border-radius: var(--06);
+    width: 100%;
 }
 
 .title_for_section {
@@ -433,7 +448,7 @@ section {
 
 .header_logo_big img {
     width: 100%;
-    margin-bottom: -5.35%;
+    margin-bottom: -4%;
     z-index: 1;
     position: relative;
     pointer-events: none;
@@ -441,10 +456,24 @@ section {
 
 /* Header_logo_big END*/
 /* News and menu */
-.main_block {
-    border-radius: var(--06);
+.two_block_grid,
+.two_block_grid_rev,
+.inner_page_articals {
     display: grid;
     grid-template-columns: 22rem 1fr;
+    gap: var(--12);
+    border-radius: var(--06);
+}
+
+.two_block_grid_rev {
+    grid-template-columns: 1fr 22rem;
+    height: 100%;
+}
+
+.three_block_grid {
+    border-radius: var(--06);
+    display: grid;
+    grid-template-columns: 22rem 1fr 23rem;
     gap: var(--12);
 
 }
@@ -488,21 +517,14 @@ nav li a:hover {
     height: 6rem;
 }
 
-.content_block {
-    /* width: 100%; */
-    /* overflow: auto; */
-}
 
-.title_news {
-    margin-bottom: var(--12);
-}
+
 
 /* News and menu END*/
 
 /* BANNER */
-.news_banner {
-    padding: var(--12);
-
+.news_banner_wrap {
+    overflow: hidden;
 }
 
 .news_banner a {
@@ -527,19 +549,43 @@ nav li a:hover {
 
 /* sponsor */
 .sponsor {
-    background-color: var(--color_background_white_50);
-    padding: var(--sponsor);
     display: flex;
     flex-direction: column;
-    gap: var(--40);
+    gap: var(--12);
     border-radius: var(--06);
+    height: auto;
 
 }
 
+.inner_page .sponsor {
+    height: 100%;
+}
+
+.main_sponsor {
+    display: flex;
+    min-height: 10rem;
+    background-color: var(--color_background_white);
+    border-radius: var(--06);
+    align-items: center;
+    justify-content: center;
+    padding: var(--28);
+}
+
+.second_sponsor {
+    border-radius: var(--06);
+    width: auto;
+    padding: var(--32) var(--28);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--28);
+}
+
 .sponsor_title {
-    font-family: var(--display03_font_family);
-    font-size: var(--display03_font_size);
-    line-height: var(--display03_line_height);
+    font-family: var(--display01_font_family);
+    font-size: var(--display01_font_size);
+    line-height: var(--display01_line_height);
 }
 
 .sponsor_img {
@@ -560,12 +606,13 @@ nav li a:hover {
 /* rek_left  */
 
 .rek_left {
-    padding: var(--ads);
+
     display: flex;
     flex-direction: column;
     gap: var(--20);
-    background-color: var(--color_background_white_50);
+    background-color: var(--color_background_white);
     border-radius: var(--06);
+    height: 100%;
 }
 
 /* rek_left  END */
@@ -623,6 +670,10 @@ nav li a:hover {
     height: var(--32);
     border-radius: var(--48);
     margin-top: var(--04);
+}
+
+.notification.active {
+    transform: translateY(0);
 }
 
 /* notification END */
@@ -797,7 +848,12 @@ nav li a:hover {
 }
 
 /*  MOBILE MENU END */
+/* SELECTOR */
+.selector_wrap {
+    position: relative;
+}
 
+/* SELECTOR END */
 /* mobile_selector */
 .mobile_selector_wrap {
     position: fixed;
@@ -846,9 +902,9 @@ nav li a:hover {
 }
 
 .top_menu_mobile span {
-    font-family: var(--display03_font_family);
-    font-size: var(--display03_font_size);
-    line-height: var(--display03_line_height);
+    font-family: var(--display01_font_family);
+    font-size: var(--display01_font_size);
+    line-height: var(--display01_line_height);
 }
 
 .top_menu_mobile_none {

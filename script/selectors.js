@@ -20,7 +20,7 @@ $(document).ready(function () {
     function openSelector(clickedElement, e) {
         e.stopPropagation(); // Останавливаем всплытие клика
 
-        const parent = clickedElement.closest(".selector_wrap"); // Находим родителя 
+        const parent = $(clickedElement).closest(".selector_wrap"); // Находим родителя 
         const selector = parent.find(".selector"); // Ищем связанный `.selector`
         const button = parent.find("button"); // Находим кнопку
 
@@ -31,36 +31,29 @@ $(document).ready(function () {
         if (selector.css("display") === "none") {
             selector.css({ display: "block" });
 
-            // Получаем размеры и позиции элементов
+            // Получаем размеры и позиции
             const buttonRect = button[0].getBoundingClientRect();
             const selectorRect = selector[0].getBoundingClientRect();
             const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
-            // Вычисляем позицию по горизонтали с учетом скролла
-            let left = buttonRect.left + scrollLeft;
-            if (left + selectorRect.width > windowWidth) {
-                left = windowWidth - selectorRect.width;
+            // Вычисляем, где кликнули: слева или справа
+            const clickX = e.clientX; // Координата X клика
+            const middleScreen = windowWidth / 2; // Центр экрана
+
+            let positionStyles = { position: "absolute" };
+
+            if (clickX > middleScreen) {
+                // Клик с правой стороны экрана
+                positionStyles.right = "0";
+                positionStyles.left = "auto";
+            } else {
+                // Клик с левой стороны экрана
+                positionStyles.left = "0";
+                positionStyles.right = "auto";
             }
 
-            // Вычисляем позицию по вертикали с учетом скролла
-            let top = buttonRect.bottom + scrollTop + 5; // 5px отступ от кнопки
-            if (top + selectorRect.height > windowHeight + scrollTop) {
-                top = buttonRect.top + scrollTop - selectorRect.height - 5; // Показываем над кнопкой
-            }
-
-            // Применяем позицию
-            selector.css({
-                position: 'absolute', // Меняем на absolute
-                left: left + 'px',
-                top: top + 'px'
-            });
-
-
-
-
+            selector.css(positionStyles);
         } else {
             selector.css({ display: "none" });
         }

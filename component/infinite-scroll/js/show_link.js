@@ -1,8 +1,11 @@
+// 
+// Вставляем ссылку с поста в адресную строку браузера при прокрутке страницы
+// 
 document.addEventListener("DOMContentLoaded", function () {
-    let posts = document.querySelectorAll(".post-item");
+    let posts = document.querySelectorAll(".post_item");
 
     function updatePostsList() {
-        posts = document.querySelectorAll(".post-item"); // Обновляем список постов
+        posts = document.querySelectorAll(".post_item"); // Обновляем список постов
     }
 
     function updateURL() {

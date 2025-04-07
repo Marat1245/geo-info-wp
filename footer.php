@@ -12,6 +12,7 @@
 ?>
 </div><!-- #content -->
 
+
 <!-- NOTIFICATION -->
 <?php get_template_part('component/notification'); ?>
 <!-- NOTIFICATION END -->
@@ -27,4 +28,5 @@
 <?php wp_footer(); ?>
 
 </body>
+
 </html>

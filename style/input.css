@@ -21,7 +21,7 @@ select {
     -moz-appearance: none;
     /* Для Firefox */
 
-    background: url("../img/icons/Arrow_down_20.svg") no-repeat right 1rem center;
+    background: url("../img/icons/arrow_down_20.svg") no-repeat right 1rem center;
     /* Добавляем свою стрелочку через background и позиционируем её */
 
     background-size: 2rem;
@@ -82,6 +82,13 @@ label {
 
 input.normal {
     height: 5.8rem;
+}
+
+.normal_size {
+    padding-top: var(--08);
+    padding-bottom: var(--08);
+    height: fit-content;
+    min-height: var(--24);
 }
 
 .comment_input_wrap {
@@ -442,3 +449,9 @@ input.normal {
     justify-content: flex-end;
     gap: 1rem;
 }
+
+.post_input {
+    background-color: var(--color_background_white) !important;
+}
+
+.post_input_wrap .comment_right_block {}

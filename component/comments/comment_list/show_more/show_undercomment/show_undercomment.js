@@ -3,7 +3,7 @@ document.addEventListener('click', function (event) {
     if (event.target.closest('.under_comment_more_btn')) {
         const moreBtn = event.target.closest('.under_comment_more_btn');
         const undercommentsList = moreBtn.closest('.comment_responses');
-        const postId = undercommentsList.closest('.post-item').dataset.postId;
+        const postId = undercommentsList.closest('.post_item').dataset.postId;
         const prevNode = undercommentsList.previousElementSibling;
         const commentId = prevNode.dataset.commentId;
         var loadedCommentsCount = undercommentsList.querySelectorAll('.response').length;
@@ -41,7 +41,7 @@ document.addEventListener('click', function (event) {
                     // Добавляем новые комментарии
                     moreBtn.insertAdjacentHTML('beforebegin', response.data.html);
                     const totalCount = response.data.total_count - response.data.loadedCommentsCount;
-                    console.log(totalCount);
+
                     if (totalCount <= 0) {
                         moreBtn.remove();
 

@@ -17,11 +17,8 @@ export function displayImage(src, id = null, edit = false) {
 // Обработчик событий для кнопки "Назад" и закрытия попапа
 document.addEventListener("click", (event) => {
 
-    if (
-
-        event.target.closest(".btn_load_back, .pop_up_bg, .pop_up_close, .btn_load_img")
-
-    ) {
+    if (event.target.closest(".btn_load_back, .pop_up_bg, .pop_up_close, .btn_load_img")) {
+        if (!imageHTMLFirst) { return; }
         imageHTMLFirst.style.display = "block"; // Показываем первый блок
         imageHTMLSecond.style.display = "none"; // Скрываем второй блок
         imageSecondImg.src = ""; // Очищаем изображение

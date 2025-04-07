@@ -5,7 +5,7 @@ export function input(data, wrap, disabledInput, placeholder) {
     const block = `
         <div class="wrap_input_selector">
             <input name="type_post" type="text" placeholder="${placeholder}" ${disabledInput ? "readonly" : ""} class="${disabledInput ? "readonly_input" : ""}">
-            <button class="flat small_icon"><img src="./img/icons/Arrow_down_20.svg" alt=""></button>
+            <button class="flat small_icon"><img src="./img/icons/arrow_down_20.svg" alt=""></button>
             <div class="t_list_input post_list">
                 <ul></ul>
             </div>

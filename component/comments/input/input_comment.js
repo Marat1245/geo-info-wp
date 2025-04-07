@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const commentInput = commentForm.querySelector('.comment_input');
         const submitButton = commentForm.querySelector('button[type="submit"]');
         const charCounter = commentForm.querySelector('.comment_char_counter');
+        const commentList = commentForm.closest('.post_item').querySelector('.comment_list');
 
 
         if (!commentInput || !submitButton || !charCounter) return;
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Обработка ввода текста
         commentInput.addEventListener('input', (e) => {
-            console.log('Input event triggered');
+
             const text = getContentEditableText(commentInput);
 
             if (text.length > MAX_LENGTH) {
@@ -160,7 +161,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     commentInput.classList.add('placeholder');
                     charCounter.style.display = 'none';
                     const commentHtml = comment_template(data.data);
-                    commentForm.insertAdjacentHTML('afterend', commentHtml);
+
+                    commentList.insertAdjacentHTML('afterbegin', commentHtml);
+                    // commentList.insertAdjacentHTML('beforebegin', commentHtml);
                     // Обновляем состояние кнопки после очистки
                     updateSubmitButton(commentInput, submitButton, MAX_LENGTH);
                 } else {

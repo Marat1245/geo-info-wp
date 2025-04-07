@@ -23,47 +23,6 @@ export function past(editor) {
             return;
         }
 
-        // Если вставляется HTML-код
-        // const pastedHTML = clipboardData.getData("text/html");
-        // if (pastedHTML) {
-        //     const parser = new DOMParser();
-        //     const doc = parser.parseFromString(pastedHTML, "text/html");
-        //
-        //     // Проходим по каждому элементу внутри <body>, сохраняя порядок
-        //     doc.body.childNodes.forEach((node) => {
-        //         console.log(node.nodeName)
-        //         if (node.nodeName === "IMG") {
-        //             // Если это простой <img> узел
-        //             pastedItems.push({ type: "image", data: node.src });
-        //
-        //
-        //         } else if (node.nodeType === Node.TEXT_NODE) {
-        //             // Если это текстовый узел
-        //             const text = node.textContent.trim();
-        //             if (text) {
-        //                 pastedItems.push({ type: "text", data: text });
-        //             }
-        //         } else if (node.nodeType === Node.ELEMENT_NODE) {
-        //             // Если это элемент (например, <div>, <p>)
-        //             // Сначала извлекаем текст из элемента
-        //             const text = node.innerText.trim();
-        //             if (text) {
-        //                 pastedItems.push({ type: "text", data: text });
-        //             }
-        //
-        //             // Теперь проверяем, есть ли в этом элементе изображения
-        //             const images = node.querySelectorAll("img");
-        //             images.forEach((img) => {
-        //                 pastedItems.push({ type: "image", data: img.src });
-        //             });
-        //         }
-        //
-        //     });
-        //
-        //     processPastedItems(editor, pastedItems);
-        //     return;
-        // }
-
 
         // Если вставляется только текст
         const pastedText = clipboardData.getData("text/plain");
@@ -76,10 +35,10 @@ export function past(editor) {
 
 // Функция обработки вставленных данных
 function processPastedItems(editor, items) {
-    console.log("📋 Вставленные данные:", items);
+  
 
     items.forEach((item) => {
-        console.log(item);
+       
         if (item.type === "image") {
             insertImage(editor, item.data);
 

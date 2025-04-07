@@ -31,7 +31,7 @@ export const insertCroppedImage = (editor, croppedImageDataURL, imageContainer =
         // Вставляем после текущего блока или в конец редактора
         if (currentBlock) {
             currentBlock.replaceWith(imageContainer);
-            console.log(imageContainer)
+           
 
         } else {
             editor.appendChild(imageContainer);

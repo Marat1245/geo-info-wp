@@ -12,7 +12,7 @@ class ShowUndercommentController{
             //$undercomments = ShowUndercommentModel::get_undercomments($post_id, $comment_id, $offset, $comments_per_load);
             $undercomments = ShowUndercommentModel::get_undercomments($post_id, $comment_id, $offset);
           
-            error_log(print_r($undercomments, true));
+            
             ob_start();
             ShowUndercommentView::render_undercomments($undercomments);
             $html = ob_get_clean();

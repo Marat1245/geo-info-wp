@@ -13,7 +13,7 @@ export function showList(
 
     });
     $(wrapInput).on("click", "input, button", function () {
-        console.log("click")
+      
         // Найти текущий блок .skills_input_wrap
         const $currentWrap = $(this).closest(wrapInput);
 

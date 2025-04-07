@@ -1,35 +1,33 @@
+import { response_template } from './js/response_template.js';
 document.addEventListener('DOMContentLoaded', function () {
-    const MAX_LENGTH = 2500;
-    const SHOW_COUNTER_AT = 2250;
 
-    // Обработка клика по кнопке "Ответить"
+
+
     document.addEventListener('click', function (e) {
-        const answerButton = e.target.closest('.answer_comment');
+        const answerButton = e.target.closest('.answer_comment'); // кнопка "Ответить"
         if (!answerButton) return;
 
-        const commentBlock = answerButton.closest('.user_comment');
+        const commentBlock = answerButton.closest('.user_comment'); // блок комментария
         if (!commentBlock) return;
 
-        const commentId = commentBlock.dataset.commentId;
-        const authorName = commentBlock.querySelector('.comment_name').textContent;
+        let comment_response_form = commentBlock.querySelector('.comment_response_form'); // ищем форму
 
-        // Получаем форму ответа для текущего комментария
-        let responseForm = commentBlock.querySelector('.comment_response_form');
+        if (comment_response_form) {
+            // Если форма уже есть, просто удаляем её (закрытие при повторном нажатии)
+            comment_response_form.remove();
+        } else {
+            // Если формы нет, создаем и добавляем её
+            const commentId = commentBlock.dataset.commentId; // id комментария
+            const authorName = commentBlock.querySelector('.comment_name').textContent; // имя автора
 
-        // Если форма существует и уже отображается, скрываем её
-        if (responseForm && responseForm.style.display === 'block') {
-            window.commentManager.closeAllForms(commentBlock);
-            return;
-        }
+            const responseForm = response_template(commentId, comment_response, authorName);
+            commentBlock.insertAdjacentHTML("beforeend", responseForm);
 
-        // Показываем форму ответа для текущего комментария
-        if (responseForm) {
-            responseForm.style.display = 'block';
-            // Вставляем имя автора в поле ввода
-            const input = responseForm.querySelector('.comment_input');
-            if (input) {
-                input.innerHTML = `${authorName},&nbsp;`;
-                // Устанавливаем фокус и перемещаем курсор в конец
+            // Добавляем класс активности и ставим фокус в поле ввода
+            comment_response_form = commentBlock.querySelector('.comment_response_form');
+
+            const input = commentBlock.querySelector('.comment_input');
+            requestAnimationFrame(() => {
                 input.focus();
                 const range = document.createRange();
                 const sel = window.getSelection();
@@ -37,29 +35,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 range.collapse(false);
                 sel.removeAllRanges();
                 sel.addRange(range);
-            }
+            });
         }
     });
 
-    // Обработка отмены ответа
+    // Обработка клика по кнопке "Отмена"
     document.addEventListener('click', function (e) {
         const cancelButton = e.target.closest('.cancel_response');
-
         if (!cancelButton) return;
 
-        const responseForm = cancelButton.closest('.comment_response_form');
-        if (responseForm) {
-            responseForm.style.display = 'none';
-            // Очищаем поле ввода
-            const input = responseForm.querySelector('.comment_input');
-            if (input) {
-                input.textContent = '';
-                // Меняем иконку на исходную
-                const icon = responseForm.querySelector('.comment_icon');
-                if (icon) {
-                    icon.src = icon.dataset.defaultIcon;
-                }
-            }
+        const commentBlock = cancelButton.closest('.user_comment');
+        if (!commentBlock) return;
+
+        const comment_response_form = commentBlock.querySelector('.comment_response_form');
+        if (comment_response_form) {
+            comment_response_form.remove();
         }
     });
 
@@ -79,12 +69,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         if (!content) {
-            alert('Пожалуйста, введите текст ответа');
+            console.log('Пожалуйста, введите текст ответа');
             return;
         }
 
         // Отправляем ответ на сервер
-        fetch(comment_ajax.url, {
+        fetch(comment_response.url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -94,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 parent_id: parentId,
 
                 content: content,
-                nonce: comment_ajax.nonce
+                nonce: comment_response.nonce
             })
         })
             .then(response => response.json())
@@ -105,26 +95,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Находим родительский комментарий
                     const parentComment = form.closest('.parent_comment');
 
-                    const childComment = form.closest('.response');
+                    const childComment = saveButton.closest('.response');
+
                     // Создаем временный контейнер для парсинга HTML
                     const temp = document.createElement('div');
                     temp.className = 'comment_responses';
                     temp.innerHTML = response.data.html;
                     const newComment = temp.firstElementChild;
 
-                    if (childComment) {
 
+                    // Если родительский комментарий существует
+                    if (childComment) {
                         // Вставляем новый комментарий после chiledComment
                         childComment.after(newComment);
                     } else {
 
                         // Находим следующий элемент после родительского комментария
                         let nextComment = parentComment.nextElementSibling;
-                        // Если блок с дочерними комментариями существует
-                        if (nextComment) {
-                            // Перемещаем следующий комментарий в начало блока .comment_responses
-                            nextComment.after(newComment);
-                        }
+
+                        // Перемещаем следующий комментарий в начало блока .comment_responses
+                        nextComment.prepend(newComment);
+
                     }
 
 

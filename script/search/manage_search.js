@@ -8,7 +8,7 @@ export function manageSearch() {
     });
 
     wrap.on("click", "#search_back", function () {
-        console.log("ll")
+      
         $(".search_input_wrap").css("display", "none");
         wrap.find(".title_for_section__left").css("display", "block");
         wrap.find(".search_wrap").css("display", "flex");

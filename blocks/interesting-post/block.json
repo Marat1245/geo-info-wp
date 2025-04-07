@@ -1,0 +1,10 @@
+{
+    "apiVersion": 2,
+    "name": "custom/interesting-post",
+    "title": "Вам будет интересно",
+    "category": "widgets",
+    "icon": "admin-links",
+    "editorScript": "custom-interesting-post",
+    "style": "custom-interesting-post-style"
+  }
+  

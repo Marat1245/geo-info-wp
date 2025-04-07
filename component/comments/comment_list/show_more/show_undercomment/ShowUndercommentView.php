@@ -33,7 +33,7 @@ class ShowUndercommentView
                 </div>
 
                 <?php CommentRestoreView::render_comment_restore($is_deleted); ?>                
-                <?php CommentResponseController::render_response_form($comment['id']); ?>
+                <?php //CommentResponseController::render_response_form($comment['id']); ?>
 
             </div>           
 

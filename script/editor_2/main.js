@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let selectedNodes = getSelectedNodes(range); // Получаем все узлы в выделении
         let hasCommand = selectedNodes.some(node => node.nodeType === 1 && node.classList.contains(command));
 
-        console.log(selectedNodes)
+        
 
         if (hasCommand) {
             // Если уже есть блок с этим классом → убираем его
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const convertToList = (block, listType) => {
-        console.log(block);
+      
 
         // Создаём новый список
         let list = document.createElement(listType);

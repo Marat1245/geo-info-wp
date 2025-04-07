@@ -51,8 +51,7 @@ export const mergeSpan = (sel) => {
 
 
                 }
-                // Выводим массив элементов
-                // console.log(elements);
+              
                 break;
             }
             parentElement = parentElement.parentNode;

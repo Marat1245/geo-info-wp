@@ -21,7 +21,7 @@ export const cleanBoldSpans = (element) => {
     }
     if (element.tagName === "LI" || element.tagName === "P") {
         let li = element.querySelectorAll("li");
-        console.log(li)
+       
         // li.forEach(item => {
         //     let parent = item.parentNode;
         //

@@ -12,8 +12,9 @@ class ShowMoreController {
             $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
             $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;            
             $parent_id = isset($_POST['parent_id']) ? json_decode(stripslashes($_POST['parent_id'])) : [];
+            $count_comments = isset($_POST['count_comments']) ? intval($_POST['count_comments']) : 0;
             
-            $comments = ShowMoreModel::get_comments($post_id, self::LOAD_MORE_COUNT, $offset, $parent_id);
+            $comments = ShowMoreModel::get_comments($post_id, self::LOAD_MORE_COUNT, $offset, $parent_id, $count_comments);
                  
                             
             
@@ -24,11 +25,11 @@ class ShowMoreController {
 
             wp_send_json_success(array(
                 'html' => $html,
-                'show_more' => $comments['show_more'],
-                'remaining_total' => $comments['remaining_comments'],
-                'next_load_count' => self::LOAD_MORE_COUNT,
-                'total_comments' => $comments['total_comments'],
-                // 'formatted_comments' => $comments['formatted_comments'],
+                'show_more' => $comments['show_more'], // Показывать ли кнопку "Показать ещё"
+                'remaining_total' => $comments['remaining_comments'], // Количество оставшихся комментариев
+                'next_load_count' => self::LOAD_MORE_COUNT, // Количество комментариев для подгрузки
+                'total' => $comments['total'], // Количество комментариев
+              
                 
             ));
         } catch (Exception $e) {

@@ -6,12 +6,12 @@ const Config = {
 }
 
 function ShowPopUp(config = Config) {
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         const containerPopUp = document.querySelector(config.containerPopUp)
 
-        if (event.target.matches(config.photoButtonSelector) || event.target.closest(config.imgBlockSelector)) {
+        if ((event.target.matches(config.photoButtonSelector) || event.target.closest(config.imgBlockSelector)) && containerPopUp) {
             containerPopUp.classList.add('show_pop_up');
-        } else if (event.target.matches(config.closeSelectors)) {
+        } else if ((event.target.matches(config.closeSelectors)) && containerPopUp) {
 
             containerPopUp.classList.remove('show_pop_up');
         }

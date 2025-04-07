@@ -1,13 +1,16 @@
 <?php
 
-class InputCommentModel {
+class InputCommentModel
+{
     /**
      * Создает новый комментарий
      *
      * @param array $comment_data Данные комментария
      * @return array Результат создания комментария
      */
-    public static function create_comment($comment_data) {
+    public static function create_comment($comment_data)
+    {
+
         if (empty($comment_data['post_id']) || empty($comment_data['content'])) {
             return array(
                 'success' => false,
@@ -16,7 +19,7 @@ class InputCommentModel {
         }
 
         $user = wp_get_current_user();
-        
+
         $commentdata = array(
             'comment_post_ID' => intval($comment_data['post_id']),
             'comment_content' => wp_kses_post($comment_data['content']),
@@ -40,11 +43,11 @@ class InputCommentModel {
         $comment = get_comment($comment_id);
         $timestamp = strtotime($comment->comment_date);
         $current_time = current_time('timestamp');
-        
+
         // Если прошло меньше минуты
         if (($current_time - $timestamp) < 60) {
             $date = 'только что';
-        } 
+        }
 
         // Получаем количество лайков для нового комментария
         $likes = get_comment_meta($comment_id, 'likes_count', true) ?: 0;
@@ -62,4 +65,4 @@ class InputCommentModel {
             )
         );
     }
-} 
+}
